@@ -77,7 +77,10 @@ function ItemRack.EquipSet(setname)
 			set.old[i] = nil -- wipe old items
 		end
 		set.oldset = ItemRackUser.CurrentSet
-		ReInsertBlackDiamonds()
+		
+		if ItemRack.IsBD(setname) then
+			ReInsertBlackDiamonds()
+		end
 	end
 
 	-- if in combat or dead, combat queue items wanting to equip and only let swappables through

@@ -8,6 +8,7 @@ ItemRackUser = {
 	Sets = {}, -- user's sets
 	ItemsUsed = {}, -- items that have been used (for notify purposes)
 	Hidden = {}, -- items the user chooses to hide in menus
+	BD = {}, -- Black diamonds
 	Queues = {}, -- item auto queue sorts
 	QueuesEnabled = {}, -- which queues are enabled
 	Locked = "OFF", -- buttons locked
@@ -117,13 +118,13 @@ ItemRack.TooltipInfo = {
 	{"ItemRackButtonMenuClose","Удалить","Удалить слот, из которого открывается это меню."},
 	{"ItemRackOptSetsHideCheckButton","Спрятать комплект ","Проверь это, чтобы скрыть набор в меню"},
 	{"ItemRackOptItemStatsPriority","Приоритет","Проверьте это, чтобы сделать этот пункт автоматического оснащения, когда он выходит из холодильника, даже если оборудованный пункт выключен холодильник и ждет, чтобы использоваться."},
-	{"ItemRackOptSetsHideCheckButton","Спрятать","Спрячь этот набор в меню. (Эквивалент от нажатия Alt+ в меню)."},
+	--{"ItemRackOptSetsHideCheckButton","Спрятать","Спрячь этот набор в меню. (Эквивалент от нажатия Alt+ в меню)."},
 	{"ItemRackOptSetsSaveButton","Сохранить комплект","Сохранить этот набор. Некоторые настройки, такие как привязка клавиш, видимость маскировки/шлема и скрытость, могут быть изменены только на сохраненный набор."},
 	{"ItemRackOptSetsDeleteButton","Удалить комплект","Удалите это определение набора. Если вы хотите удалить его из меню и, возможно, захотите удалить его снова в будущем, установите флажок 'Скрыть' слева."},
 	{"ItemRackOptSetsBindButton","Привязать клавишу к комплекту","Это позволит вам привязать клавишу или комбинацию клавиш для оснащения набора."},
 	{"ItemRackOptEventNew","Новое событие","Создать новое событие."},
 	{"ItemRackOptEventDelete","Удалить событие","Если это событие включено или имеет связанный с ним набор, то он удалит теги и бросит его в список.  Если это событие является немаркированным, оно удалит его полностью."},
-	
+	{"ItemRackOptSetsBDCheckButton","Черные бриллианты","Переставлять черные бриллианты в этот комплект при его надевании"},
 	
 	{"ItemRackOptEventEditBuffAnyMount","Любое крепление","При этом проверяется, активен ли какой-либо крепеж вместо определенного буфера."},
 	{"ItemRackOptEventEditExpand","Редактирование в редакторе","Это отсоединит окно редактирования скрипта выше к текстовому редактору с возможностью изменения размера."},
@@ -1653,6 +1654,42 @@ function ItemRack.IsHidden(id)
 		end
 	end
 	return nil
+end
+
+function ItemRack.AddBD(id)
+	if not ItemRackUser.BD then -- to support the first download with the settings of the version without black diamonds
+		ItemRackUser.BD = {}
+	end
+	if id then			
+		for i=1,#(ItemRackUser.BD) do
+			if ItemRackUser.BD[i]==id then
+				return
+			end
+		end		
+		table.insert(ItemRackUser.BD,id)
+	end
+end
+
+function ItemRack.RemoveBD(id)
+	if ItemRackUser.BD then
+		for i=1,#(ItemRackUser.BD) do
+			if ItemRackUser.BD[i]==id then
+				table.remove(ItemRackUser.BD,i)
+				break
+			end
+		end
+	end
+end
+
+function ItemRack.IsBD(id)
+	if ItemRackUser.BD then
+		for i=1,#(ItemRackUser.BD) do
+			if ItemRackUser.BD[i]==id then
+				return 1
+			end
+		end
+		return nil
+	end
 end
 
 function ItemRack.ToggleHidden(id)
