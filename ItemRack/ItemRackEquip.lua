@@ -426,7 +426,7 @@ local metaItems = {
 }
 
 local ignoreList = {}
-local lastSlotID
+local lastSlotID = 1
 
 local CheckSocketingSlots, CheckInventorySlot
 
@@ -434,10 +434,11 @@ local f = CreateFrame("Frame")
 f:SetScript("OnEvent", function(self, event)
 	if event == "SOCKET_INFO_UPDATE" then
 	--    CheckSocketingSlots()
-		 C_Timer:After(0.05, CheckSocketingSlots)
+		C_Timer:After(0.05, CheckSocketingSlots)
 	elseif event == "SOCKET_INFO_CLOSE" then
 	--    CheckInventorySlot()
-		 C_Timer:After(0.05, CheckInventorySlot)
+		lastSlotID = lastSlotID + 1
+		C_Timer:After(0.05, CheckInventorySlot)
 	end
 end)
 
@@ -469,7 +470,7 @@ function CheckSocketingSlots()
 			  if not name then
 					local checkBags = CheckBagsSlots(soketID, GetSocketTypes(soketID) == "Meta")
 					if not checkBags then
-						 totalSokets = totalSokets + 1
+						totalSokets = totalSokets + 1
 					end
 			  else
 					totalSokets = totalSokets + 1
@@ -480,36 +481,35 @@ function CheckSocketingSlots()
 		 end
 	end
 	if totalSokets == numSockets then
-		 if hasAcceptSockets then
-			  AcceptSockets()
-		 end
-		 lastSlotID = lastSlotID + 1
-		 HideUIPanel(ItemSocketingFrame)
+		if hasAcceptSockets then
+			AcceptSockets()
+		end
+		HideUIPanel(ItemSocketingFrame)
 	end
 end
 
 function CheckInventorySlot()
 	for slotID = (lastSlotID or 1), 19 do
-		 lastSlotID = slotID
-		 itemID = GetInventoryItemLink("player", slotID)
-		 if itemID then
-			  SocketInventoryItem(slotID)
-			  if GetNumSockets() > 0 then
-					break
-			  end
-		 end
+		lastSlotID = slotID
+		itemID = GetInventoryItemLink("player", slotID)
+		if itemID then
+		SocketInventoryItem(slotID)
+			if GetNumSockets() > 0 then
+				break
+			end
+		end
 	end
 	if lastSlotID == 19 then
-		 f:UnregisterEvent("SOCKET_INFO_UPDATE")
-		 f:UnregisterEvent("SOCKET_INFO_CLOSE")
-		 table.wipe(ignoreList)
-		 lastSlotID = nil
+		f:UnregisterEvent("SOCKET_INFO_UPDATE")
+		f:UnregisterEvent("SOCKET_INFO_CLOSE")
+		table.wipe(ignoreList)
+		lastSlotID = 1
 	end
 end
 
 function InsertBlackDiamonds()
 	table.wipe(ignoreList)
-	lastSlotID = nil
+	lastSlotID = 1
 	f:RegisterEvent("SOCKET_INFO_UPDATE")
 	f:RegisterEvent("SOCKET_INFO_CLOSE")
 	CheckInventorySlot()
