@@ -54,27 +54,19 @@ function ItemRack.InitButtons()
 	ItemRack.CreateTimer("ReflectClickedUpdate",ItemRack.ReflectClickedUpdate,.2,1)		
 
 	ItemRackFrame:RegisterEvent("UNIT_INVENTORY_CHANGED")
-	ItemRackFrame:RegisterEvent("ACTIONBAR_UPDATE_COOLDOWN")
+	
 	ItemRackFrame:RegisterEvent("ITEM_LOCK_CHANGED")
 	ItemRackFrame:RegisterEvent("UPDATE_BINDINGS")
 	ItemRack.ReflectMainScale()
-	ItemRack.ReflectMenuOnRight()
 	ItemRack.ConstructLayout()
-	ItemRack.UpdateButtonCooldowns()
-	ItemRack.ReflectHideOOC()
+	
+
 	ItemRack.ReflectCooldownFont()
-	ItemRack.UpdateCombatQueue()
 	ItemRack.KeyBindingsChanged()
-	ItemRack.UpdateDisableAltClick()
+	
 end
 
-function ItemRack.UpdateDisableAltClick()
-	if not InCombatLockdown() then
-		for i=0,19 do
-			getglobal("ItemRackButton"..i):SetAttribute("alt-slot*",ItemRackSettings.DisableAltClick=="OFF" and ATTRIBUTE_NOOP or nil)
-		end
-	end
-end
+
 
 function ItemRack.newPaperDollItemSlotButton_OnModifiedClick(button)
 	if IsAltKeyDown() then
@@ -116,12 +108,10 @@ function ItemRack.AddButton(id)
 	ItemRack.NewAnchor = id
 	getglobal("ItemRackButton"..id.."Icon"):SetTexture(ItemRack.GetTextureBySlot(id))
 	button:Show()
-	ItemRack.UpdateButtonCooldowns()
+	
 	if id==20 then
 		ItemRack.UpdateCurrentSet()
-		if ItemRack.ReflectEventsRunning then
-			ItemRack.ReflectEventsRunning()
-		end
+		
 	end
 end
 
@@ -362,15 +352,13 @@ function ItemRack.UpdateButtons()
 		end
 	end
 	ItemRack.UpdateCurrentSet()
-	ItemRack.UpdateButtonCooldowns()
+	
 end
 
 --[[ Menu ]]
 
 function ItemRack.DockMenuToButton(button)
-	if (button==13 or button==14) and ItemRackSettings.TrinketMenuMode=="ON" and ItemRackUser.Buttons[13] and ItemRackUser.Buttons[14] then
-		button = 13 + (ItemRackSettings.AnchorOther=="ON" and 1 or 0)
-	end
+	
 
 	local parent = ItemRack.FindParent(button)
 	-- get docking and orientation from parent of this button group, use defaults if none defined
@@ -382,9 +370,7 @@ end
 
 function ItemRack.OnEnterButton()
 	ItemRack.InventoryTooltip()
-	if ItemRack.IsTimerActive("ButtonsDocking") or (not IsShiftKeyDown() and ItemRackSettings.MenuOnShift=="ON") or ItemRackSettings.MenuOnRight=="ON" then
-		return -- don't show menu while buttons docking
-	end
+	
 	local button = this:GetID()
 	ItemRack.DockMenuToButton(button)
 	ItemRack.BuildMenu(button)
@@ -482,14 +468,8 @@ end
 function ItemRack.ButtonPostClick()
 	this:SetChecked(0)
 	local id = this:GetID()
-	if arg1=="RightButton" and ItemRackSettings.MenuOnRight=="ON" then
-		if ItemRackMenuFrame:IsVisible() and ItemRack.menuOpen==id then
-			ItemRackMenuFrame:Hide()
-		else
-			ItemRack.DockMenuToButton(id)
-			ItemRack.BuildMenu(id)
-		end
-	elseif IsShiftKeyDown() then
+
+	if IsShiftKeyDown() then
 		if id<20 then
 			if ChatFrameEditBox:IsVisible() then
 				ChatFrameEditBox:Insert(GetInventoryItemLink("player",id))
@@ -498,7 +478,7 @@ function ItemRack.ButtonPostClick()
 			ItemRack.UnequipSet(ItemRackUser.CurrentSet)
 		end
 	elseif IsAltKeyDown() then
-		if id<20 and ItemRackSettings.DisableAltClick=="OFF" then
+	
 			if not ItemRackUser.Queues[id] then
 				LoadAddOn("ItemRackOptions")
 				ItemRackOptFrame:Show()
@@ -506,14 +486,12 @@ function ItemRack.ButtonPostClick()
 				ItemRackOpt.SetupQueue(id)
 			end
 			ItemRackUser.QueuesEnabled[id] = not ItemRackUser.QueuesEnabled[id] and 1 or nil
-			if ItemRackOptSubFrame7 and ItemRackOptSubFrame7:IsVisible() and ItemRackOpt.SelectedSlot==id then
-				ItemRackOptQueueEnable:SetChecked(ItemRackUser.QueuesEnabled[id])
-			end
-			ItemRack.UpdateCombatQueue()
-		elseif id==20 then
-			ItemRack.ToggleEvents()
+		
+			
+		
+			
 		end
-	elseif id<20 then
+	if id<20 then
 		ItemRack.ReflectItemUse(id)
 	elseif id==20 then
 		if arg1=="LeftButton" and ItemRackUser.CurrentSet then
@@ -521,6 +499,8 @@ function ItemRack.ButtonPostClick()
 				ItemRack.ToggleSet(ItemRackUser.CurrentSet)
 			else
 				ItemRack.EquipSet(ItemRackUser.CurrentSet)
+				ItemRack.EquipSet(ItemRackUser.CurrentSet)
+
 			end
 		else
 			ItemRack.ToggleOptions(2) -- summon set options
@@ -544,22 +524,8 @@ function ItemRack.ReflectClickedUpdate()
 	end
 end
 
-function ItemRack.UpdateButtonCooldowns()
-	for i in pairs(ItemRackUser.Buttons) do
-		if i<20 then
-			CooldownFrame_SetTimer(getglobal("ItemRackButton"..i.."Cooldown"),GetInventoryItemCooldown("player",i))
-		end
-	end
-	ItemRack.WriteButtonCooldowns()
-end
 
-function ItemRack.WriteButtonCooldowns()
-	if ItemRackSettings.CooldownCount=="ON" then
-		for i in pairs(ItemRackUser.Buttons) do
-			ItemRack.WriteCooldown(getglobal("ItemRackButton"..i.."Time"),GetInventoryItemCooldown("player",i))
-		end
-	end
-end
+
 
 function ItemRack.UpdateButtonLocks()
 	local isLocked
@@ -589,19 +555,7 @@ function ItemRack.ButtonMenuOnClick()
 	elseif this==ItemRackButtonMenuLock then
 		ItemRackUser.Locked = ItemRackUser.Locked=="ON" and "OFF" or "ON"
 		ItemRack.ReflectLock()
-	elseif this==ItemRackButtonMenuQueue then
-		if ItemRackOptFrame and ItemRackOptFrame:IsVisible() then
-			ItemRackOptFrame:Hide()
-		else
-			LoadAddOn("ItemRackOptions")
-			ItemRackOptFrame:Show()
-			if ItemRack.menuOpen<20 then
-				ItemRackOpt.TabOnClick(4)
-				ItemRackOpt.SetupQueue(ItemRack.menuOpen)
-			else
-				ItemRackOpt.TabOnClick(3)
-			end
-		end
+
 	end
 end
 
@@ -629,46 +583,20 @@ function ItemRack.ReflectMainScale(changing)
 	end
 end
 
-function ItemRack.ReflectMenuOnRight()
-	for i=0,20 do
-		getglobal("ItemRackButton"..i):SetAttribute("slot2",ItemRackSettings.MenuOnRight=="ON" and ATTRIBUTE_NOOP or nil)
-	end
-end
 
-function ItemRack.ReflectHideOOC()
-	for i in pairs(ItemRackUser.Buttons) do
-		if ItemRackSettings.HideOOC=="ON" and not ItemRack.inCombat then
-			getglobal("ItemRackButton"..i):Hide()
-		else
-			getglobal("ItemRackButton"..i):Show()
-		end
-	end
-end
 
---[[ Cooldowns ]]
 
-function ItemRack.WriteCooldown(where,start,duration)
-	local cooldown = duration - (GetTime()-start)
-	if start==0 or ItemRackSettings.CooldownCount=="OFF" then
-		where:SetText("")
-	elseif cooldown<3 and not where:GetText() then
-		-- this is a global cooldown. don't display it. not accurate but at least not annoying
-	else
-		where:SetText((cooldown<(ItemRackSettings.Cooldown90=="ON" and 90 or 60) and math.floor(cooldown+.5).." s") or (cooldown<3600 and math.ceil(cooldown/60).." m") or math.ceil(cooldown/3600).." h")
-	end
-end
+
+
 
 --[[ Key binding display ]]
 
 function ItemRack.KeyBindingsChanged()
 	local key
 	for i in pairs(ItemRackUser.Buttons) do
-		if ItemRackSettings.ShowHotKeys=="ON" then
-			key = GetBindingKey("CLICK ItemRackButton"..i..":LeftButton")
-			getglobal("ItemRackButton"..i.."HotKey"):SetText(GetBindingText(key or "",nil,1))
-		else
+		
 			getglobal("ItemRackButton"..i.."HotKey"):SetText("")
-		end
+		
 	end
 end
 

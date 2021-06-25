@@ -159,21 +159,7 @@
 					<TexCoords left=".875" right="1" top=".125" bottom=".25"/>
 				</PushedTexture>
 			</Button>
-			<Button name="ItemRackButtonMenuQueue" inherits="ItemRackButtonMenuTemplate">
-				<Anchors>
-					<Anchor point="TOPRIGHT">
-						<Offset>
-							<AbsDimension x="-1" y="-1"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\ItemRack\ItemRackButtons">
-					<TexCoords left="0" right=".125" top=".5" bottom=".625"/>
-				</NormalTexture>
-				<PushedTexture file="Interface\AddOns\ItemRack\ItemRackButtons">
-					<TexCoords left=".125" right=".25" top=".5" bottom=".625"/>
-				</PushedTexture>
-			</Button>
+		
 			<Button name="ItemRackButtonMenuOptions" inherits="ItemRackButtonMenuTemplate">
 				<Anchors>
 					<Anchor point="BOTTOMLEFT">

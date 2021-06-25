@@ -11,18 +11,14 @@ ItemRackOpt = {
 }
 
 ItemRack.CheckButtonLabels = {
-	["ItemRackOptItemStatsPriorityText"] = "Priority",
-	["ItemRackOptItemStatsKeepEquippedText"] = "Pause Queue",
-	["ItemRackOptQueueEnableText"] = "Auto Queue This Slot",
-	["ItemRackOptSetsHideCheckButtonText"] = "Hide",
-	["ItemRackOptShowHelmText"] = "Helm",
-	["ItemRackOptShowCloakText"] = "Cloak",
-	["ItemRackOptEventEditBuffAnyMountText"] = "Any mount",
-	["ItemRackOptEventEditBuffUnequipText"] = "Unequip when buff fades",
-	["ItemRackOptEventEditBuffNotInPVPText"] = "Except in PVP instances",
-	["ItemRackOptEventEditStanceUnequipText"] = "Unequip on leaving stance",
-	["ItemRackOptEventEditZoneUnequipText"] = "Unequip on leaving zone",
-	["ItemRackOptEventEditStanceNotInPVPText"] = "Except in PVP instances",
+	["ItemRackOptItemStatsPriorityText"] = "Приоритет",
+	["ItemRackOptSetsHideCheckButtonText"] = "Спрятать",
+	["ItemRackOptEventEditBuffAnyMountText"] = "Любая установка",
+	["ItemRackOptEventEditBuffUnequipText"] = "Снять когда баф спадает",
+	["ItemRackOptEventEditBuffNotInPVPText"] = "За исключением случаев PVP",
+	["ItemRackOptEventEditStanceUnequipText"] = "Снять когда покидаешь стойку",
+	["ItemRackOptEventEditZoneUnequipText"] = "Снять когда уходите из зоны",
+	["ItemRackOptEventEditStanceNotInPVPText"] = "За исключением случаев PVP",
 }
 
 function ItemRackOpt.InvOnEnter()
@@ -57,10 +53,10 @@ function ItemRackOpt.OnLoad()
 		ItemRackOpt.HoldInv[i] = {}
 	end
 	ItemRackOpt.PopulateInitialIcons()
-	ItemRackOpt.PopulateEventList()
+	
 	ItemRackOptSetsCurrentSet:EnableMouse(0)
 
-	ItemRackOptFrameTitle:SetText("IR "..ItemRack.Version)
+	ItemRackOptFrameTitle:SetText("Днюша")
 
 	-- OptInfo: this table drives the scrollable options. must be defined after xml defined (so buttons are non-nil)
 	-- type = "label", "check", "number", "slider", "button" : what type of option element
@@ -72,56 +68,38 @@ function ItemRackOpt.OnLoad()
 	-- button = frame : reference to the button shown on the option (editbox, slider or actual button)
 	-- combatlock = 1/nil : whether option can be changed in combat (key bindings, hide when ooc, etc)
 	ItemRackOpt.OptInfo = {
-		{type="label",label=(UnitName("player")).."'s Settings"},
-		{type="check",optset=ItemRackUser,variable="Locked",label="Lock Buttons",tooltip="Prevent buttons and menus from being moved."},
-		{type="check",optset=ItemRackUser,variable="EnableEvents",label="Enable events",tooltip="Enable events to automatically swap gear."},
-		{type="check",optset=ItemRackUser,variable="EnableQueues",label="Enable auto queues",tooltip="Enables auto queues to automatically swap gear."},
-		{type="number",optset=ItemRackUser,variable="ButtonSpacing",button=ItemRackOptButtonSpacing,label="Button spacing",tooltip="Padding distance between buttons.",combatlock=1},
-		{type="slider",button=ItemRackOptButtonSpacingSlider,variable="ButtonSpacing",label="Button spacing",tooltip="Padding distance between buttons.", min=0, max=24, step=1, form="%d",combatlock=1},
-		{type="number",optset=ItemRackUser,variable="Alpha",button=ItemRackOptAlpha,label="Transparency",tooltip="Transparency (alpha) of the buttons and menu."},
-		{type="slider",button=ItemRackOptAlphaSlider,variable="Alpha",label="Transparency",tooltip="Transparency (alpha) of the buttons and menu.", min=.1, max=1, step=.05, form="%.2f"},
-		{type="number",optset=ItemRackUser,variable="MainScale",button=ItemRackOptMainScale,label="Button scale",tooltip="Scale size of the item buttons.",combatlock=1},
-		{type="slider",button=ItemRackOptMainScaleSlider,variable="MainScale",label="Button scale",tooltip="Scale size of the item buttons.", min=.5, max=2, step=.05, form="%.2f",combatlock=1},
+		{type="label",label=(UnitName("player")).." Настройки"},
+		{type="check",optset=ItemRackUser,variable="Locked",label="Кнопки блокировки",tooltip="Заблокировать перемещение кнопок."},
+		{type="number",optset=ItemRackUser,variable="ButtonSpacing",button=ItemRackOptButtonSpacing,label="Расстояние от кнопок",tooltip="Расстояние между кнопками.",combatlock=1},
+		{type="slider",button=ItemRackOptButtonSpacingSlider,variable="ButtonSpacing",label="Расстояние от кнопок",tooltip="Расстояние между кнопками.", min=0, max=24, step=1, form="%d",combatlock=1},
+		{type="number",optset=ItemRackUser,variable="Alpha",button=ItemRackOptAlpha,label="Прозрачность",tooltip="Прозрачность  кнопок и меню."},
+		{type="slider",button=ItemRackOptAlphaSlider,variable="Alpha",label="Прозрачность",tooltip="Прозрачность кнопок и меню.", min=.1, max=1, step=.05, form="%.2f"},
+		{type="number",optset=ItemRackUser,variable="MainScale",button=ItemRackOptMainScale,label="Размер кнопок",tooltip="Размеры кнопок элементов.",combatlock=1},
+		{type="slider",button=ItemRackOptMainScaleSlider,variable="MainScale",label="Размер кнопок",tooltip="Размеры кнопок элементов.", min=.5, max=2, step=.05, form="%.2f",combatlock=1},
 
-		{type="number",optset=ItemRackUser,variable="MenuScale",button=ItemRackOptMenuScale,label="Menu scale",tooltip="Scale size of the menu in relation to the button it's docked to."},
-		{type="slider",button=ItemRackOptMenuScaleSlider,variable="MenuScale",label="Menu scale",tooltip="Scale size of the menu.", min=.5, max=2, step=.05, form="%.2f"},
+		{type="number",optset=ItemRackUser,variable="MenuScale",button=ItemRackOptMenuScale,label="Размер для меню",tooltip="Масштаб меню по отношению к кнопке, к которой оно пристыковано."},
+		{type="slider",button=ItemRackOptMenuScaleSlider,variable="MenuScale",label="Размер для меню",tooltip="Размеры меню.", min=.5, max=2, step=.05, form="%.2f"},
 
-		{type="check",optset=ItemRackUser,variable="SetMenuWrap",label="Set menu wrap",tooltip="Check this to set a fixed value when the menu wraps to a new row.  Uncheck to let ItemRack decide."},
+		{type="check",optset=ItemRackUser,variable="SetMenuWrap",label="Обёртывание меню",tooltip="Отметьте этот флажок, чтобы установить фиксированное значение при обертывании меню в новую строку.  Снимите флажок, чтобы позволить ItemRack принять свое решение."},
 
-		{type="number",optset=ItemRackUser,variable="SetMenuWrapValue",depend="SetMenuWrap",button=ItemRackOptSetMenuWrapValue,label="When to wrap",tooltip="When 'Set menu wrap' checked, this is the number of menu items before wrapping to a new row/column."},
-		{type="slider",optset=ItemRackUser,button=ItemRackOptSetMenuWrapValueSlider,depend="SetMenuWrap",variable="SetMenuWrapValue",label="When to wrap",tooltip="When 'Set menu wrap' checked, this is the number of menu items before wrapping to a new row/column.", min=1, max=30, step=1, form="%d"},
+		{type="number",optset=ItemRackUser,variable="SetMenuWrapValue",depend="SetMenuWrap",button=ItemRackOptSetMenuWrapValue,label="Когда обернуть",tooltip="Если установлен флажок 'Установить обертку меню', это количество пунктов меню перед оберткой в новую строку/столбец."},
+		{type="slider",optset=ItemRackUser,button=ItemRackOptSetMenuWrapValueSlider,depend="SetMenuWrap",variable="SetMenuWrapValue",label="Когда обернуть",tooltip="Когда отмечен флажок 'Установить обертку меню', это количество пунктов меню перед оберткой в новую строку/столбец..", min=1, max=30, step=1, form="%d"},
 
-		{type="label",label="Global Settings"},
-		{type="check",optset=ItemRackSettings,variable="MenuOnShift",label="Menu on Shift",tooltip="Only show menu while Shift is held down."},
-		{type="check",optset=ItemRackSettings,variable="MenuOnRight",label="Menu on right click",tooltip="Open menu by right clicking buttons.",combatlock=1},
-		{type="check",optset=ItemRackSettings,variable="HideOOC",label="Hide out of combat",tooltip="Hide the buttons while out of combat.",combatlock=1},
-		{type="check",optset=ItemRackSettings,variable="Notify",label="Notify when ready",tooltip="Announce when an item you used comes off cooldown."},
-		{type="check",optset=ItemRackSettings,variable="NotifyThirty",label="Notify at 30",tooltip="Announce when an item you used is at 30 seconds cooldown."},
-		{type="check",optset=ItemRackSettings,variable="NotifyChatAlso",label="Notify chat also",tooltip="Send cooldown notifications to chat also."},
-		{type="check",optset=ItemRackSettings,variable="ShowTooltips",label="Show tooltips",tooltip="Show tooltips like the one you're reading now."},
-		{type="check",optset=ItemRackSettings,variable="TinyTooltips",depend="ShowTooltips",label="Tiny Tooltips",tooltip="Shrink item tooltips to display only name, cooldown and durability."},
-		{type="check",optset=ItemRackSettings,variable="TooltipFollow",depend="ShowTooltips",label="Tooltips at pointer",tooltip="Show tooltips near the mouse."},
-		{type="check",optset=ItemRackSettings,variable="CooldownCount",label="Cooldown numbers",tooltip="Display the cooldown time as a number over items."},
-		{type="check",optset=ItemRackSettings,variable="LargeNumbers",depend="CooldownCount",label="Large numbers",tooltip="Use a larger font for cooldown numbers."},
-		{type="check",optset=ItemRackSettings,variable="Cooldown90",depend="CooldownCount",label="Countdown at 90",tooltip="Use seconds instead of minutes starting at 90 seconds remaining."},
-		{type="check",optset=ItemRackSettings,variable="AllowEmpty",label="Allow empty slots",tooltip="Add an empty slot to menus of equipped items."},
-		{type="check",optset=ItemRackSettings,variable="AllowHidden",label="Allow hidden items",tooltip="Enable Alt+clicking of menu items to hide/show them in the menu.  Hold Alt as you enter a menu to show all."},
-		{type="check",optset=ItemRackSettings,variable="HideTradables",label="Hide tradables",tooltip="Prevent tradable items from showing up in the menu."},
-		{type="check",optset=ItemRackSettings,variable="ShowMinimap",label="Show minimap button",tooltip="Show the minimap button to access options or change sets."},
-		{type="check",optset=ItemRackSettings,variable="SquareMinimap",depend="ShowMinimap",label="Square minimap",tooltip="If you use a square minimap, make the button drag along square edge."},
-		{type="check",optset=ItemRackSettings,variable="MinimapTooltip",depend="ShowMinimap",label="Show minimap tooltip",tooltip="If tooltips enabled, show what mouse clicks will do when clicking the minimap button."},
-		{type="check",optset=ItemRackSettings,variable="TrinketMenuMode",label="TrinketMenu mode",tooltip="When mouseover of either trinket slot, open anchored to the top trinket.  Left click of a menu item will equip to the top trinket.  Right click will equip to the bottom trinket."},
-		{type="check",optset=ItemRackSettings,variable="AnchorOther",depend="TrinketMenuMode",label="Anchor other trinket",tooltip="In TrinketMenu mode, trinket menus dock to the top trinket.  Check this to anchor them to the bottom trinket."},
-		{type="check",optset=ItemRackSettings,variable="EquipToggle",label="Toggle sets on equip",tooltip="When a set is equipped, if it's already equipped, unequip it."},
-		{type="check",optset=ItemRackSettings,variable="ShowHotKeys",label="Show key bindings",tooltip="Display key bindings on buttons"},
-		{type="check",optset=ItemRackSettings,variable="EquipOnSetPick",label="Equip in options",tooltip="Check this to equip sets and items when selecting items in options or from the dropdown in the Sets tab."},
-		{type="check",optset=ItemRackSettings,variable="CharacterSheetMenus",label="Character sheet menus",tooltip="While this is checked, mouseover of slots on the character sheet will pop out a menu of items that can go in that slot."},
-		{type="check",optset=ItemRackSettings,variable="DisableAltClick",label="Disable Alt+Click",tooltip="Alt+Click on buttons dragged from the character sheet toggles auto queue for that slot.  Check this to disable that behavior. (ie to use Alt+click to self cast instead.)",combatlock=1},
+		{type="label",label="Глобальные настройки"},
+		{type="check",optset=ItemRackSettings,variable="ShowTooltips",label="Показать подсказки",tooltip="Показывать подсказки."},
+		{type="check",optset=ItemRackSettings,variable="TinyTooltips",depend="ShowTooltips",label="Крошечные подсказки",tooltip="Уменьшите подсказки для отображения только имени."},
+		{type="check",optset=ItemRackSettings,variable="TooltipFollow",depend="ShowTooltips",label="Подсказки рядом с указателем",tooltip="Показывать подсказки рядом с мышью."},
+		{type="check",optset=ItemRackSettings,variable="AllowEmpty",label="Разрешить пустые слоты",tooltip="Добавление пустых слотов в меню надетых предметов."},
+		{type="check",optset=ItemRackSettings,variable="AllowHidden",label="Скрытые комплекты",tooltip="Нажмите Alt+ ЛКМ, чтобы скрыть/показать их в меню. Удерживайте клавишу Alt при входе в меню, чтобы показать все пункты."},
+		{type="check",optset=ItemRackSettings,variable="ShowMinimap",label="Показать кнопку миникарты",tooltip="Показать кнопку миникарты, чтобы получить доступ к параметрам или изменить набор"},
+		{type="check",optset=ItemRackSettings,variable="SquareMinimap",depend="ShowMinimap",label="Квадратная миникарта",tooltip="Если вы используете квадратную миникарту"},
+		{type="check",optset=ItemRackSettings,variable="MinimapTooltip",depend="ShowMinimap",label="Показать всплывающую подсказку на миникарте",tooltip="Показывает, набор команд рядом с кнопкой на миникарте"},
+		{type="check",optset=ItemRackSettings,variable="EquipToggle",label="Переключение набора экипировки",tooltip="Если набор экипирован, то при нажатие на этот же комплект, будет экипирован прошлый комплект."},
+		{type="check",optset=ItemRackSettings,variable="EquipOnSetPick",label="Снарядить в настройках",tooltip="Отметьте этот флажок, чтобы снарядить комплекты или отдельную экипировку при выборе слота в настройках или из выпадающего списка в вкладке комплекты."},
 		{type="label",label=""},
-		{type="button",button=ItemRackOptKeyBindings,label="Slot Key Bindings",tooltip="Set key bindings to use slots.",combatlock=1},
-		{type="button",button=ItemRackOptResetBar,label="Reset Buttons",tooltip="Remove all buttons and restore to default alpha and scale.",combatlock=1},
-		{type="button",button=ItemRackOptResetEvents,label="Reset Events",tooltip="Restore default events or wipe all events to default settings."},
-		{type="button",button=ItemRackOptResetEverything,label="Reset Everything",tooltip="Wipe all settings, sets and events to restore mod to a default state.",combatlock=1},
+		{type="button",button=ItemRackOptResetBar,label="Кнопка сброса",tooltip="Удалить все кнопки и восстановить интерфейс по умолчанию.",combatlock=1},
+		
+		{type="button",button=ItemRackOptResetEverything,label="Сбросить все",tooltip="Сотрите все настройки, наборы, чтобы восстановить аддон до состояния по умолчанию.",combatlock=1},
 	}
 
 	ItemRackOpt.InitializeSliders()
@@ -136,8 +114,8 @@ function ItemRackOpt.OnLoad()
 		getglobal(i):SetTextColor(1,1,1,1)
 	end
 
-	ItemRackOpt.TriStateCheckSetState(ItemRackOptShowHelm,nil)
-	ItemRackOpt.TriStateCheckSetState(ItemRackOptShowCloak,nil)
+	
+	
 end
 
 function ItemRackOpt.InitializeSliders()
@@ -282,36 +260,14 @@ function ItemRackOpt.ButtonOnClick()
 	elseif button=="ItemRackOptBindUnbind" then
 		ItemRackOpt.UnbindKey()
 		ItemRackOptBindFrame:Hide()
-	elseif button=="ItemRackOptKeyBindings" then
-		ItemRackOptSubFrame6:Show()
 	elseif button=="ItemRackOptSortListClose" then
 		ItemRackOptSubFrame7:Hide()
 	elseif button=="ItemRackOptResetBar" then
 		ItemRack.ResetButtons()
 	elseif button=="ItemRackOptResetEverything" then
 		ItemRack.ResetEverything()
-	elseif button=="ItemRackOptEventEdit" then
-		ItemRackOptSubFrame8:Show()
-	elseif button=="ItemRackOptEventEditCancel" then
-		ItemRackOptSubFrame8:Hide()
-	elseif button=="ItemRackOptEventNew" then
-		ItemRackOpt.EventSelected = nil
-		ItemRackOpt.EventListScrollFrameUpdate()
-		ItemRackOpt.ValidateEventListButtons()
-		ItemRackOptSubFrame8:Show()
-	elseif button=="ItemRackOptEventEditSave" then
-		ItemRackOpt.EventEditSave()
-	elseif button=="ItemRackOptEventDelete" then
-		ItemRackOpt.EventEditDelete()
-	elseif button=="ItemRackOptEventEditExpand" then
-		ItemRackOpt.ToggleEventEditor()
-	elseif button=="ItemRackFloatingEditorClose" then
-		ItemRackFloatingEditor:Hide()
-	elseif button=="ItemRackOptResetEvents" then
-		ItemRack.ResetEvents()
-	elseif button=="ItemRackFloatingEditorSave" then
-		ItemRackFloatingEditor:Hide()
-		ItemRackOpt.EventEditSave()
+
+	
 	elseif button=="ItemRackFloatingEditorTest" then
 		RunScript(ItemRackFloatingEditorEditBox:GetText())
 	elseif button=="ItemRackFloatingEditorUndo" then
@@ -404,10 +360,10 @@ function ItemRackOpt.ValidateSetButtons()
 	ItemRackOptSetsHideCheckButton:Disable()
 	ItemRackOptSetsHideCheckButtonText:SetTextColor(.5,.5,.5,1)
 	ItemRackOptSetsHideCheckButton:SetChecked(0)
-	ItemRackOpt.TriStateCheckSetState(ItemRackOptShowHelm,nil)
-	ItemRackOpt.TriStateCheckSetState(ItemRackOptShowCloak,nil)
-	ItemRackOptShowHelm:Disable()
-	ItemRackOptShowCloak:Disable()
+	
+	
+	
+	
 	local setname = ItemRackOptSetsName:GetText()
 	if string.len(setname)>0 then
 		for i=0,19 do
@@ -424,10 +380,10 @@ function ItemRackOpt.ValidateSetButtons()
 		ItemRackOptSetsHideCheckButtonText:SetTextColor(1,1,1,1)
 		ItemRackOptSetsHideCheckButton:SetChecked(ItemRack.IsHidden(setname))
 		ItemRackOptSetsCurrentSetIcon:SetTexture(ItemRackUser.Sets[setname].icon)
-		ItemRackOpt.TriStateCheckSetState(ItemRackOptShowHelm,ItemRackUser.Sets[setname].ShowHelm)
-		ItemRackOpt.TriStateCheckSetState(ItemRackOptShowCloak,ItemRackUser.Sets[setname].ShowCloak)
-		ItemRackOptShowHelm:Enable()
-		ItemRackOptShowCloak:Enable()
+		
+		
+		
+		
 	end
 end
 
@@ -451,8 +407,8 @@ end
 function ItemRackOpt.DeleteSet()
 	ItemRackUser.Sets[ItemRackOptSetsName:GetText()] = nil
 	ItemRackOpt.PopulateSetList()
-	ItemRack.CleanupEvents()
-	ItemRackOpt.PopulateEventList()
+	
+	
 end
 
 function ItemRackOpt.HideSet()
@@ -517,7 +473,7 @@ function ItemRackOpt.PickSetOnHide()
 		-- if going back to events frame and selected event is enabled with no set, unenable it
 		if not ItemRackUser.Events.Set[event] then
 			ItemRackUser.Events.Enabled[event] = nil
-			ItemRackOpt.PopulateEventList()
+			
 --			ItemRack.Print("That event can't be enabled without choosing a set.")
 		end
 	end
@@ -595,12 +551,13 @@ function ItemRackOpt.SelectSetList()
 			ItemRackUser.Events.Enabled[event] = 1
 		end
 		ItemRackUser.Events.Set[event] = setname
-		ItemRackOpt.PopulateEventList()
+		
 	else
 		-- fill out set build info if picking a set (ItemRackOptSubFrame2)
 		ItemRackOpt.selectedIcon = ItemRackUser.Sets[setname].icon
 		ItemRackOptSetsName:SetText(setname)
 		if ItemRackSettings.EquipOnSetPick=="ON" then
+			ItemRack.EquipSet(setname)
 			ItemRack.EquipSet(setname)
 		end
 	end
@@ -752,33 +709,14 @@ function ItemRackOpt.OptListCheckButtonOnClick(override)
 	if opt and opt.variable then
 		opt.optset[opt.variable] = check
 	end
-	if opt.variable=="MenuOnRight" then
-		ItemRack.ReflectMenuOnRight()
-	elseif opt.variable=="HideOOC" then
-		ItemRack.ReflectHideOOC()
-	elseif opt.variable=="CooldownCount" then
-		for i in pairs(ItemRackUser.Buttons) do
-			getglobal("ItemRackButton"..i.."Time"):SetText("")
-		end
-		for i=1,#(ItemRack.Menu) do
-			if getglobal("ItemRackMenu"..i) then
-				getglobal("ItemRackMenu"..i.."Time"):SetText("")
-			end
-		end
-		ItemRack.WriteButtonCooldowns()
-		ItemRack.WriteMenuCooldowns()
-	elseif opt.variable=="LargeNumbers" then
-		ItemRack.ReflectCooldownFont()
-	elseif opt.variable=="ShowMinimap" or opt.variable=="SquareMinimap" then
+	
+
+	if opt.variable=="ShowMinimap" or opt.variable=="SquareMinimap" then
 		ItemRack.MoveMinimap()
-	elseif opt.variable=="EnableQueues" then
-		ItemRack.UpdateCombatQueue()
-	elseif opt.variable=="ShowHotKeys" then
-		ItemRack.KeyBindingsChanged()
-	elseif opt.variable=="EnableEvents" then
-		ItemRack.RegisterEvents()
-	elseif opt.variable=="DisableAltClick" then
-		ItemRack.UpdateDisableAltClick()
+	
+	
+	
+
 	end
 	ItemRackOpt.ListScrollFrameUpdate()
 end
@@ -816,7 +754,7 @@ function ItemRackOpt.TabOnClick(override)
 	end
 	local which = override or this:GetID()
 	local tab,frame
-	for i=1,4 do
+	for i=1,2 do
 		tab = getglobal("ItemRackOptTab"..i)
 		if which==i then
 			tab:Disable()
@@ -856,7 +794,7 @@ end
 
 function ItemRackOpt.BindSet()
 	local setname = ItemRackOptSetsName:GetText()
-	ItemRackOpt.Binding = { type="Set", name="Set \""..setname.."\"", buttonName="ItemRack"..UnitName("player")..GetRealmName()..setname }
+	ItemRackOpt.Binding = { type="Set", name="Установить \""..setname.."\"", buttonName="ItemRack"..UnitName("player")..GetRealmName()..setname }
 	ItemRackOpt.Binding.button = getglobal(buttonName) or CreateFrame("Button",ItemRackOpt.Binding.buttonName,nil,"SecureActionButtonTemplate")
 	ItemRackOptBindFrame:Show()	
 end
@@ -864,9 +802,9 @@ end
 function ItemRackOpt.BindFrameOnShow()
 	if not ItemRackOpt.Binding then return end
 	ItemRackOpt.HideCurrentSubFrame()
-	ItemRackOpt.Binding.currentKey=GetBindingKey("CLICK "..ItemRackOpt.Binding.buttonName..":LeftButton") or "Not bound"
+	ItemRackOpt.Binding.currentKey=GetBindingKey("CLICK "..ItemRackOpt.Binding.buttonName..":LeftButton") or "Не привязан"
 	ItemRackOptBindFrameBindee:SetText(ItemRackOpt.Binding.name)
-	ItemRackOptBindFrameCurrently:SetText("Currently: "..ItemRackOpt.Binding.currentKey)
+	ItemRackOptBindFrameCurrently:SetText("На данный момент: "..ItemRackOpt.Binding.currentKey)
 end
 
 function ItemRackOpt.BindFrameOnHide()
@@ -924,7 +862,7 @@ function ItemRackOpt.BindFrameOnKeyDown()
 		local oldAction = GetBindingAction(keyPressed)
 		if oldAction~="" and keyPressed~=ItemRackOpt.Binding.currentKey then
 			StaticPopupDialogs["ItemRackCONFIRMBINDING"] = {
-				text = NORMAL_FONT_COLOR_CODE..ItemRackOpt.Binding.keyPressed..FONT_COLOR_CODE_CLOSE.." is currently bound to "..NORMAL_FONT_COLOR_CODE..(GetBindingText(oldAction,"BINDING_NAME_") or "")..FONT_COLOR_CODE_CLOSE.."\n\nDo you want to bind "..NORMAL_FONT_COLOR_CODE..keyPressed..FONT_COLOR_CODE_CLOSE.." to "..NORMAL_FONT_COLOR_CODE..ItemRackOpt.Binding.name..FONT_COLOR_CODE_CLOSE.."?",
+				text = NORMAL_FONT_COLOR_CODE..ItemRackOpt.Binding.keyPressed..FONT_COLOR_CODE_CLOSE.." в настоящее время обязан "..NORMAL_FONT_COLOR_CODE..(GetBindingText(oldAction,"BINDING_NAME_") or "")..FONT_COLOR_CODE_CLOSE.."\n\nВы хотите связать "..NORMAL_FONT_COLOR_CODE..keyPressed..FONT_COLOR_CODE_CLOSE.." to "..NORMAL_FONT_COLOR_CODE..ItemRackOpt.Binding.name..FONT_COLOR_CODE_CLOSE.."?",
 				button1 = "Yes",
 				button2 = "No",
 				timeout = 0,
@@ -1084,7 +1022,6 @@ function ItemRackOpt.PopulateSortList(slot)
 		ItemRackOpt.AddToSortList(sortList,ItemRack.Menu[i]) -- insert new items from menu (in bags/inventory)
 	end
 	ItemRackOptSortListScrollFrameScrollBar:SetValue(0)
-	ItemRackOpt.SortListScrollFrameUpdate()
 end
 
 function ItemRackOpt.AddToSortList(sortList,id)
@@ -1097,39 +1034,7 @@ function ItemRackOpt.AddToSortList(sortList,id)
 	end
 end
 
-function ItemRackOpt.SortListScrollFrameUpdate()
 
-	local item, name, texture, quality, idx
-	local slot = ItemRackOpt.SelectedSlot
-	local sortList = slot and ItemRackUser.Queues[slot]
-	local offset = FauxScrollFrame_GetOffset(ItemRackOptSortListScrollFrame)
-
-	FauxScrollFrame_Update(ItemRackOptSortListScrollFrame, sortList and #(sortList) or 0, 11, 24)
-	
-	for i=1,11 do
-		item = getglobal("ItemRackOptSortList"..i)
-		idx = offset + i
-		if sortList and idx<=#(sortList) then
-			if sortList[idx]==0 then
-				name,texture,quality = "-- stop queue here --","Interface\\Buttons\\UI-GroupLoot-Pass-Up",1
-			else
-				name,texture,_,quality = ItemRack.GetInfoByID(sortList[idx])
-			end
-			getglobal("ItemRackOptSortList"..i.."Name"):SetText(name)
-			getglobal("ItemRackOptSortList"..i.."Icon"):SetTexture(texture)
-			getglobal("ItemRackOptSortList"..i.."Name"):SetTextColor(GetItemQualityColor(quality or 1))
-			item:Show()
-			if idx==ItemRackOpt.SortSelected then
-				ItemRackOpt.LockHighlight(item)
-			else
-				ItemRackOpt.UnlockHighlight(item)
-			end
-		else
-			item:Hide()
-		end
-
-	end
-end
 
 function ItemRackOpt.LockHighlight(frame)
 	if type(frame)=="string" then frame = getglobal(frame) end
@@ -1152,7 +1057,7 @@ function ItemRackOpt.SortListOnClick()
 	else
 		ItemRackOpt.SortSelected = idx
 	end
-	ItemRackOpt.SortListScrollFrameUpdate()
+	
 	ItemRackOpt.ValidateSortButtons()
 end
 
@@ -1181,16 +1086,14 @@ function ItemRackOpt.ValidateSortButtons()
 		-- display delay/priority/etc
 		ItemRackOptItemStatsFrame:Show()
 		ItemRackOptSlotQueueName:Hide()
-		ItemRackOptQueueEnable:Hide()
 		local id = string.match(list[selected],"^(%d+)")
 		ItemRackOptItemStatsPriority:SetChecked(ItemRackItems[id] and ItemRackItems[id].priority or 0)
-		ItemRackOptItemStatsKeepEquipped:SetChecked(ItemRackItems[id] and ItemRackItems[id].keep or 0)
+		
 		ItemRackOptItemStatsDelay:SetText((ItemRackItems[id] and ItemRackItems[id].delay) or 0)
 	else
 		ItemRackOptSortMoveDelete:Disable()
 		ItemRackOptItemStatsFrame:Hide()
 		ItemRackOptSlotQueueName:Show()
-		ItemRackOptQueueEnable:Show()
 	end
 	if not IsShiftKeyDown() and selected then -- keep selected visible on list, moving thumb as needed, unless shift is down
 		local parent = ItemRackOptSortListScrollFrameScrollBar
@@ -1205,7 +1108,6 @@ function ItemRackOpt.ValidateSortButtons()
 			PlaySound("UChatScrollButton");
 		end
 	end
-	ItemRackOptQueueEnable:SetChecked(ItemRackUser.QueuesEnabled[ItemRackOpt.SelectedSlot])
 end
 
 function ItemRackOpt.SortMove()
@@ -1231,21 +1133,10 @@ function ItemRackOpt.SortMove()
 		ItemRackOpt.SortSelected = nil
 	end
 	ItemRackOpt.ValidateSortButtons()
-	ItemRackOpt.SortListScrollFrameUpdate()
+	
 end
 
-function ItemRackOpt.SortListOnEnter()
-	getglobal(this:GetName().."Highlight"):Show()
-	local idx = FauxScrollFrame_GetOffset(ItemRackOptSortListScrollFrame) + this:GetID()
-	local list = ItemRackUser.Queues[ItemRackOpt.SelectedSlot]
-	if list[idx] then
-		if list[idx]==0 then
-			ItemRack.OnTooltip("Stop Queue Here","Move this to mark an explicit end to an order. ie, if you have a clickable trinket with a passive effect, and would like to use the passive effect if no better trinkets are off cooldown.")
-		else
-			ItemRack.IDTooltip(list[idx])
-		end
-	end
-end
+
 
 function ItemRackOpt.SortListOnLeave()
 	GameTooltip:Hide()
@@ -1297,10 +1188,7 @@ function ItemRackOpt.ItemStatsCheckOnClick()
 	end
 end
 
-function ItemRackOpt.QueueEnableSlotOnClick()
-	ItemRackUser.QueuesEnabled[ItemRackOpt.SelectedSlot] = this:GetChecked()
-	ItemRack.UpdateCombatQueue()
-end
+
 
 --[[ Show/Hide/Ignore Helm/Cloak tristate checkbuttons ]]
 
@@ -1336,507 +1224,31 @@ function ItemRackOpt.TriStateCheckOnClick()
 	ItemRackOpt.TriStateCheckSetState(this,newstate)
 	local setname = ItemRackOptSetsName:GetText()
 	if setname and ItemRackUser.Sets[setname] then
-		local which = this==ItemRackOptShowHelm and "ShowHelm" or "ShowCloak"
+		
 		ItemRackUser.Sets[setname][which] = newstate
 	end
-	ItemRackOpt.TriStateCheckTooltip()
+	
 end
 
-function ItemRackOpt.TriStateCheckTooltip()
-	local tristate_names = { ["nil"] = "Ignore", ["0"] = "Hide", ["1"] = "Show" }
-	local which = this==ItemRackOptShowHelm and "Helm" or "Cloak"
-	ItemRack.OnTooltip(which..": "..tristate_names[tostring(this.tristate)],"This determines if the "..string.lower(which).." is shown or hidden when equipped.\n\124TInterface\\Buttons\\UI-CheckBox-Up:22\124t = Ignore\n\124TInterface\\Buttons\\UI-CheckBox-Check:22\124t = Show\n\124TInterface\\RAIDFRAME\\ReadyCheck-NotReady:22\124t = Hide")
-end
 
---[[ Events ]]
 
-ItemRackOpt.EventList = {}
 
-function ItemRackOpt.PopulateEventList()
-	local list = ItemRackOpt.EventList
-	local events = ItemRackEvents
-	local user = ItemRackUser.Events
 
-	-- if an event is selected, save it as oldevent
-	local oldevent = ItemRackOpt.EventSelected and list[ItemRackOpt.EventSelected][1] or nil
-	ItemRackOpt.EventSelected = nil
 
-	local safeToRegister = 1 -- assume it's safe to register events
 
-	for i in pairs(list) do
-		list[i] = nil
-	end
-	local setname
-	for i in pairs(events) do
-		if user.Set[i] then
-			setname = user.Set[i]
-		elseif events[i].Type=="Script" and user.Enabled[i] then
-			setname = "zzz" -- give it a fake set name for sorting purposes
-		else
-			setname = nil
-		end
-		if user.Enabled[i] and not setname then
-			safeToRegister = nil
-		end
-		table.insert(list,{i,events[i].Type,user.Enabled[i],setname})
-	end
 
-	local function sortbyset(e1,e2)
-		if e1 and e2 and e1[4] and not e2[4] then
-			return true -- sort by set defined
-		elseif e1 and e2 and e1[4] and e2[4] and e1[1]<e2[1] then
-			return true -- sort set-defined by alpha
-		elseif e1 and e2 and not e1[4] and not e2[4] and e1[1]<e2[1] then
-			return true -- sort set-undefined by alpha
-		else
-			return false
-		end
-	end
-	table.sort(ItemRackOpt.EventList,sortbyset)
 
-	-- find oldevent if it existed
-	if oldevent then
-		for i=1,#(list) do
-			if list[i][1]==oldevent then
-				ItemRackOpt.EventSelected = i
-				break
-			end
-		end
-	end
-	ItemRackOpt.EventListScrollFrameUpdate()
-	ItemRackOpt.ValidateEventListButtons()
 
-	if safeToRegister then
-		ItemRack.RegisterEvents()
-	end
-end
 
-function ItemRackOpt.EventListScrollFrameUpdate()
 
-	local item, icon, texture, idx
-	local offset = FauxScrollFrame_GetOffset(ItemRackOptEventListScrollFrame)
-	local list = ItemRackOpt.EventList
 
-	FauxScrollFrame_Update(ItemRackOptEventListScrollFrame, #(list), 9, 24)
 
-	for i=1,9 do
-		item = getglobal("ItemRackOptEventList"..i)
-		idx = offset + i
-		if idx<=#(list) then
-			getglobal("ItemRackOptEventList"..i.."Name"):SetText(list[idx][1])
-			icon = getglobal("ItemRackOptEventList"..i.."Icon")
-			if list[idx][2]=="Script" then
-				texture = "Interface\\AddOns\\ItemRackOptions\\ItemRackScriptIcon"
-			elseif ItemRackUser.Events.Set[list[idx][1]] then
-				texture = ItemRackUser.Sets[ItemRackUser.Events.Set[list[idx][1]]].icon
-			else
-				texture = "Interface\\Icons\\INV_Misc_QuestionMark"
-			end
-			icon:SetNormalTexture(texture)
-			icon:SetPushedTexture(texture)
-			getglobal("ItemRackOptEventList"..i.."Enabled"):SetChecked(ItemRackUser.Events.Enabled[list[idx][1]])
-			if idx==ItemRackOpt.EventSelected then
-				ItemRackOpt.LockHighlight(item)
-			else
-				ItemRackOpt.UnlockHighlight(item)
-			end
-			item:Show()
-		else
-			item:Hide()
-		end
-	end
-end
 
-function ItemRackOpt.EventListOnClick()
-	local idx = FauxScrollFrame_GetOffset(ItemRackOptEventListScrollFrame) + this:GetID()
-	if ItemRackOpt.EventSelected == idx then
-		ItemRackOpt.EventSelected = nil
-	else
-		ItemRackOpt.EventSelected = idx
-	end
-	ItemRackOpt.EventListScrollFrameUpdate()
-	ItemRackOpt.ValidateEventListButtons()
-end
 
-function ItemRackOpt.EventListOnDoubleClick()
-	ItemRackOpt.EventSelected = nil
-	ItemRackOpt.EventListOnClick()
-	ItemRackOptSubFrame8:Show()
-end
 
-function ItemRackOpt.EventListOnEnter(child)
-	local idx = FauxScrollFrame_GetOffset(ItemRackOptEventListScrollFrame) + (child and this:GetParent():GetID() or this:GetID())
-	local eventName = ItemRackOpt.EventList[idx][1]
-	local eventType = ItemRackOpt.EventList[idx][2]
-	local event = ItemRackEvents[eventName]
-	local desc = "|cFFBBBBBBEquips a set when "
-	if eventType=="Buff" then
-		if event.Anymount then
-			desc = desc.."riding any mount."
-		else
-			desc = desc.."gaining the buff "..event.Buff
-		end
-	elseif eventType=="Stance" then
-		if event.Stance == 0 then
-			desc = desc.."leaving forms."
-		else
-			desc = desc.."entering stance:"..event.Stance.."."
-		end
-	elseif eventType=="Zone" then
-		desc = desc.."entering one of the following zones:"
-		for i in pairs(event.Zones) do
-			desc = desc.."\n"..i
-		end
-	else
-		desc = "|cFFBBBBBBScript event triggered on "..event.Trigger
-		local comment = string.match(event.Script,"--%[%[(.+)%]%]")
-		if comment then
-			desc = desc.."\n"..comment
-		end
-	end
-	if event.NotInPVP then
-		desc = desc.."\n|cFF888888Except in PVP instances."
-	end
-	if event.Unequip then
-		desc = desc.."\n|cFF888888Unequips when condition ends."
-	end
-	ItemRack.OnTooltip(eventName,desc)	
-	getglobal((child and this:GetParent():GetName() or this:GetName()).."Highlight"):Show()
-end
 
-function ItemRackOpt.EventListOnLeave(child)
-	GameTooltip:Hide()
-	if child and not this:GetParent().lockedHighlight then
-		getglobal(this:GetParent():GetName().."Highlight"):Hide()
-	elseif not child and not this.lockedHighlight then
-		getglobal(this:GetName().."Highlight"):Hide()
-	end
-end
 
-function ItemRackOpt.ValidateEventListButtons()
-	if ItemRackOpt.EventSelected then
-		ItemRackOptEventEdit:Enable()
-		ItemRackOptEventDelete:Enable()
-	else
-		ItemRackOptEventEdit:Disable()
-		ItemRackOptEventDelete:Disable()
-	end
-end
 
-function ItemRackOpt.EventListIconOnClick()
-	local idx = FauxScrollFrame_GetOffset(ItemRackOptEventListScrollFrame) + this:GetParent():GetID()
-	ItemRackOpt.EventSelected = idx
-	ItemRackOpt.EventListScrollFrameUpdate()
-	ItemRackOpt.ValidateEventListButtons()
-	if ItemRackOpt.EventList[ItemRackOpt.EventSelected][2]~="Script" then
-		ItemRackOptSubFrame5:Show() -- Buff, Stance or Zone event, go pick a set
-	else
-		ItemRackOptSubFrame8:Show() -- Script event, go straight to editing it
-	end
-end
 
-function ItemRackOpt.EventListEnabledOnClick()
-	local idx = FauxScrollFrame_GetOffset(ItemRackOptEventListScrollFrame) + this:GetParent():GetID()
-	ItemRackOpt.EventSelected = idx
-	local checked = this:GetChecked()
-	ItemRackUser.Events.Enabled[ItemRackOpt.EventList[idx][1]] = checked
-	if checked then
-		ItemRackUser.EnableEvents = "ON"
-		ItemRack.ReflectEventsRunning()
-	end
-	if checked and ItemRackOpt.EventList[idx][2]~="Script" and not ItemRackUser.Events.Set[ItemRackOpt.EventList[idx][1]] then
-		-- if an event without a set is being checked, choose a set
-		ItemRackOpt.EventListIconOnClick()
-	end
-	if not checked then
-		ItemRackOpt.EventSelected = nil
-	end
-	ItemRackOpt.PopulateEventList()
-end
 
-function ItemRackOpt.EventEditOnShow()
-	ItemRackOpt.MakeEscable("ItemRackOptSubFrame8","add")
-	ItemRackOpt.MakeEscable("ItemRackOptFrame","remove")
-	ItemRackOpt.HideCurrentSubFrame(8)
-	ItemRackOpt.EventEditPopulateFrame()
-end
 
-function ItemRackOpt.EventEditOnHide()
-	ItemRackFloatingEditor:Hide()
-	ItemRackOpt.MakeEscable("ItemRackOptSubFrame8","remove")
-	ItemRackOpt.MakeEscable("ItemRackOptFrame","add")
-	ItemRackOptEventEditPickTypeFrame:Hide()
-	ItemRackOpt.ShowPrevSubFrame()
-end
-
-function ItemRackOpt.EventEditClearFrame()
-	ItemRackOptEventEditNameEdit:SetText("")
-	ItemRackOptEventEditTypeDropText:SetText("Pick one")
-	ItemRackOptEventEditBuffName:SetText("")
-	ItemRackOptEventEditBuffAnyMount:SetChecked(0)
-	ItemRackOptEventEditBuffUnequip:SetChecked(0)
-	ItemRackOptEventEditBuffNotInPVP:SetChecked(0)
-	ItemRackOptEventEditStanceName:SetText("")
-	ItemRackOptEventEditStanceUnequip:SetChecked(0)
-	ItemRackOptEventEditStanceNotInPVP:SetChecked(0)
-	ItemRackOptEventEditZoneEditBox:SetText("")
-	ItemRackOptEventEditZoneUnequip:SetChecked(0)
-	ItemRackOptEventEditScriptTrigger:SetText("")
-	ItemRackOptEventEditScriptEditBox:SetText("")
-end
-
-function ItemRackOpt.EventEditPopulateFrame()
-	local idx = ItemRackOpt.EventSelected
-	local eventName = idx and ItemRackOpt.EventList[idx][1] or ""
-	local event = ItemRackEvents[eventName]
-	ItemRackOpt.EventEditClearFrame()
-	if idx and event then
-		ItemRackOptEventEditNameEdit:SetText(eventName)
-		ItemRackOptEventEditNameEdit:SetCursorPosition(0)
-		ItemRackOptEventEditTypeDropText:SetText(event.Type)
-		ItemRackOptEventEditBuffName:SetText(event.Buff or "")
-		ItemRackOptEventEditBuffName:SetCursorPosition(0)
-		if event.Anymount then
-			ItemRackOptEventEditBuffAnyMount:SetChecked(1)
-			ItemRackOptEventEditBuffName:SetText("Any mount")
-		end
-		ItemRackOptEventEditBuffUnequip:SetChecked(event.Unequip)
-		ItemRackOptEventEditBuffNotInPVP:SetChecked(event.NotInPVP)
-		ItemRackOptEventEditStanceName:SetText(event.Stance or "")
-		ItemRackOptEventEditStanceUnequip:SetChecked(event.Unequip)
-		ItemRackOptEventEditStanceNotInPVP:SetChecked(event.NotInPVP)
-		ItemRackOptEventEditZoneEditBox:SetText(ItemRackOpt.ConvertZoneTableToList(event.Zones))
-		ItemRackOptEventEditZoneEditBox:SetCursorPosition(0)
-		ItemRackOptEventEditZoneUnequip:SetChecked(event.Unequip)
-		ItemRackOptEventEditScriptTrigger:SetText(event.Trigger or "")
-		ItemRackOptEventEditScriptTrigger:SetCursorPosition(0)
-		ItemRackOptEventEditScriptEditBox:SetText(event.Script or "")
-		ItemRackOptEventEditScriptEditBox:SetCursorPosition(0)
-	else
-		ItemRackOptEventEditNameEdit:SetFocus()
-	end
-	ItemRackOpt.EventEditAnyMountChanged()
-	ItemRackOpt.EventEditDisplayType()
-end
-
-function ItemRackOpt.EventEditDisplayType()
-	local eventType = ItemRackOptEventEditTypeDropText:GetText() or ""
-	ItemRackOptEventEditBuffFrame:Hide()
-	ItemRackOptEventEditStanceFrame:Hide()
-	ItemRackOptEventEditZoneFrame:Hide()
-	ItemRackOptEventEditScriptFrame:Hide()
-	local eventFrame = getglobal("ItemRackOptEventEdit"..eventType.."Frame")
-	if eventFrame then
-		eventFrame:Show()
-	end
-	ItemRackOpt.EventEditValidateButtons()
-end
-
-function ItemRackOpt.ConvertZoneTableToList(t)
-	local list = ""
-	if t then
-		for i in pairs(t) do
-			list = list..i.."\n"
-		end
-	end
-	return list
-end
-function ItemRackOpt.ConvertZoneListToTable(list,t)
-	list=list.."\n"
-	for line in string.gmatch(list,"(.-)\n") do
-		if strlen(line)>0 then
-			t[line] = 1
-		end
-	end
-end
-
-function ItemRackOpt.EventEditTypeDropDownOnClick()
-	local pickFrame = ItemRackOptEventEditPickTypeFrame
-	if pickFrame:IsVisible() then
-		ItemRackOptEventEditPickTypeFrame:Hide()
-	else
-		ItemRackOptEventEditPickTypeFrame:Show()
-	end
-end
-
-function ItemRackOpt.EventEditPickTypeOnClick()
-	ItemRackOptEventEditPickTypeFrame:Hide()
-	ItemRackOptEventEditTypeDropText:SetText(this:GetText())
-	ItemRackOpt.EventEditDisplayType()
-end
-
-function ItemRackOpt.EventEditAnyMountChanged()
-	local item = ItemRackOptEventEditBuffName
-	if ItemRackOptEventEditBuffAnyMount:GetChecked() then
-		item:EnableMouse(0)
-		item:SetTextColor(.5,.5,.5)
-		item:ClearFocus()
-	else
-		item:EnableMouse(1)
-		item:SetTextColor(1,1,1)
-	end
-	ItemRackOpt.EventEditValidateButtons()
-end
-
-function ItemRackOpt.EventEditValidateButtons()
-	local safe = 1 -- default to assume event edit form is filled out ok
-	local test
-	if strlen(ItemRackOptEventEditNameEdit:GetText())<1 then
-		safe = nil
-	end
-	test = ItemRackOptEventEditTypeDropText:GetText()
-	if test~="Buff" and test~="Stance" and test~="Zone" and test~="Script" then
-		safe = nil
-	end
-	local eventType = ItemRackOptEventEditTypeDropText:GetText()
-	if eventType=="Buff" then
-		if ItemRackOptEventEditBuffAnyMount:GetChecked() then
-			safe = 1
-		else
-			test = ItemRackOptEventEditBuffName:GetText()
-			if test=="Any mount" or strlen(test)<1 then
-				safe = nil
-			end
-		end
-	elseif eventType=="Stance" then
-		if strlen(ItemRackOptEventEditStanceName:GetText())<1 then
-			safe = nil
-		end
-	elseif eventType=="Zone" then
-		if strlen(ItemRackOptEventEditZoneEditBox:GetText())<1 then
-			safe = nil
-		end
-	elseif eventType=="Script" then
-		test = ItemRackFloatingEditor:IsVisible() and ItemRackFloatingEditorEditBox:GetText() or ItemRackOptEventEditScriptEditBox:GetText()
-		if strlen(ItemRackOptEventEditScriptTrigger:GetText())<1 then
-			safe = nil
-		elseif strlen(test)<1 then
-			safe = nil
-		end
-	end
-	if safe then
-		ItemRackOptEventEditSave:Enable()
-	else
-		ItemRackOptEventEditSave:Disable()
-	end
-	return safe
-end
-
-function ItemRackOpt.EventEditSave(override)
-	if ItemRackFloatingEditor:IsVisible() then
-		ItemRackFloatingEditor:Hide()
-	end
-	local eventNameEdit = ItemRackOptEventEditNameEdit
-	eventNameEdit:SetFocus() -- grab focus from whatever had it
-	eventNameEdit:ClearFocus() -- and clear it (so ESC works with static popups)
-	local eventName = eventNameEdit:GetText()
-	if not override then -- if override is set, this was run via a static popup
-		local oldName = ItemRackOpt.EventSelected and ItemRackOpt.EventList[ItemRackOpt.EventSelected][1] or ""
-		if (not ItemRackOpt.EventSelected and ItemRackEvents[eventName]) or (ItemRackEvents[eventName] and oldName~=eventName) then
-			StaticPopupDialogs["ItemRackConfirmEventOverwrite"] = {
-				text = "An event with that name already exists.\nDo you want to overwrite it?",
-				button1 = "Yes", button2 = "No", timeout = 0, hideOnEscape = 1, whileDead = 1,
-				OnAccept = function() StaticPopupDialogs["ItemRackConfirmEventOverwrite"].OnCancel() ItemRackOpt.EventEditSave(1) end,
-				OnCancel = function() ItemRackOptEventEditSave:Enable() ItemRackOptEventEditCancel:Enable() end
-			}
-			ItemRackOptEventEditSave:Disable()
-			ItemRackOptEventEditCancel:Disable()
-			StaticPopup_Show("ItemRackConfirmEventOverwrite")
-			return
-		end
-	end
-	ItemRackEvents[eventName] = {}
-	local event=ItemRackEvents[eventName]
-	event.Type = ItemRackOptEventEditTypeDropText:GetText()
-	if event.Type=="Buff" then
-		event.Anymount = ItemRackOptEventEditBuffAnyMount:GetChecked()
-		event.Buff = ItemRackOptEventEditBuffName:GetText()
-		event.Unequip = ItemRackOptEventEditBuffUnequip:GetChecked()
-		event.NotInPVP = ItemRackOptEventEditBuffNotInPVP:GetChecked()
-	elseif event.Type=="Stance" then
-		event.Stance = ItemRackOptEventEditStanceName:GetText()
-		if tonumber(event.Stance) then
-			event.Stance = tonumber(event.Stance)
-		end
-		event.Unequip = ItemRackOptEventEditStanceUnequip:GetChecked()
-		event.NotInPVP = ItemRackOptEventEditStanceNotInPVP:GetChecked()
-	elseif event.Type=="Zone" then
-		event.Unequip = ItemRackOptEventEditZoneUnequip:GetChecked()
-		event.Zones = {}
-		ItemRackOpt.ConvertZoneListToTable(ItemRackOptEventEditZoneEditBox:GetText(),event.Zones)
-	elseif event.Type=="Script" then
-		event.Trigger = ItemRackOptEventEditScriptTrigger:GetText()
-		event.Script = ItemRackOptEventEditScriptEditBox:GetText()
-		ItemRackUser.Events.Enabled[eventName] = 1
-		ItemRackUser.EnableEvents = "ON"
-		ItemRack.ReflectEventsRunning()
-	end
-	ItemRack.Print("Event \""..eventName.."\" saved.")
-	ItemRackOptSubFrame8:Hide()     
-	ItemRackOpt.PopulateEventList()
-	-- select this new event in the event list
-	for i=1,#(ItemRackOpt.EventList) do
-		if ItemRackOpt.EventList[i][1]==eventName then
-			ItemRackOpt.EventSelected = i
-			break
-		end
-	end
-	ItemRackOpt.EventListScrollFrameUpdate()
-	ItemRackOpt.ValidateEventListButtons()
-end
-
-function ItemRackOpt.EventEditDelete(override)
-	local eventName = ItemRackOpt.EventList[ItemRackOpt.EventSelected][1]
-	if ItemRackUser.Events.Set[eventName] or ItemRackUser.Events.Enabled[eventName] then
-		ItemRackUser.Events.Set[eventName] = nil
-		ItemRackUser.Events.Enabled[eventName] = nil
-		ItemRackOpt.EventSelected = nil
-		ItemRackOpt.PopulateEventList()
-		return
-	end
-	if not override then
-		StaticPopupDialogs["ItemRackConfirmEventDelete"] = {
-			text = "Are you sure you want to delete the event \""..eventName.."\"?",
-			button1 = "Yes", button2 = "No", timeout = 0, hideOnEscape = 1, whileDead = 1,
-			OnAccept = function() StaticPopupDialogs["ItemRackConfirmEventDelete"].OnCancel() ItemRackOpt.EventEditDelete(1) end,
-			OnCancel = function() ItemRackOptEventNew:Enable() ItemRackOpt.ValidateEventListButtons() end
-		}
-		ItemRackOptEventEdit:Disable()
-		ItemRackOptEventDelete:Disable()
-		ItemRackOptEventNew:Disable()
-		StaticPopup_Show("ItemRackConfirmEventDelete")
-		return
-	end
-	ItemRackEvents[eventName] = nil
-	ItemRackOpt.EventSelected = nil
-	ItemRack.CleanupEvents()
-	ItemRackOpt.PopulateEventList()
-	ItemRack.Print("Event \""..eventName.."\" deleted.")
-end
-
-function ItemRackOpt.ToggleEventEditor()
-	if not ItemRackFloatingEditor:IsVisible() then
-		ItemRackFloatingEditorEditBox:SetWidth(ItemRackFloatingEditor:GetWidth()-50)
-		ItemRackFloatingEditorEditBox:SetText(ItemRackOptEventEditScriptEditBox:GetText())
-		ItemRackOpt.MakeEscable("ItemRackFloatingEditor","add")
-		ItemRackOpt.MakeEscable("ItemRackOptSubFrame8","remove")
-		ItemRackOptEventEditScriptEditBox:HighlightText()
-		ItemRackOptEventEditScriptEditLabel:Hide()
-		ItemRackOptEventEditScriptEditBackdrop:Hide()
-		ItemRackOptEventEditScriptEditScrollFrame:Hide()
-		ItemRackFloatingEditor:Show()
-	else
-		ItemRackFloatingEditor:Hide()
-	end
-end
-
-function ItemRackOpt.FloatingEditorOnHide()
-	ItemRackOpt.MakeEscable("ItemRackFloatingEditor","remove")
-	if ItemRackOptEventEditScriptFrame:IsVisible() then
-		ItemRackOpt.MakeEscable("ItemRackOptSubFrame8","add")
-	end
-	ItemRackOptEventEditScriptEditBox:SetText(ItemRackFloatingEditorEditBox:GetText())
-	ItemRackOptEventEditScriptEditLabel:Show()
-	ItemRackOptEventEditScriptEditBackdrop:Show()
-	ItemRackOptEventEditScriptEditScrollFrame:Show()
-end

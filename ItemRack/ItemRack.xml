@@ -180,11 +180,7 @@
 
 	<!-- All player Events (Buff/Zone/Stance/Script) go through this frame -->
 	<Frame name="ItemRackEventProcessingFrame" hidden="true" parent="UIParent">
-		<Scripts>
-			<OnEvent>
-				ItemRack.ProcessingFrameOnEvent(self,event)
-			</OnEvent>
-		</Scripts>
+		
 	</Frame>
 
 </Ui>

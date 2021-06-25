@@ -31,9 +31,7 @@
 			<OnClick>
 				ItemRackOpt.TriStateCheckOnClick()
 			</OnClick>
-			<OnEnter>
-				ItemRackOpt.TriStateCheckTooltip()
-			</OnEnter>
+			
 			<OnLeave>
 				GameTooltip:Hide()
 			</OnLeave>
@@ -64,9 +62,7 @@
 			<OnLeave>
 				getglobal(this:GetName().."Highlight"):Hide()
 			</OnLeave>
-			<OnClick>
-				ItemRackOpt.EventEditPickTypeOnClick()
-			</OnClick>
+			
 		</Scripts>
 	</Button>
 
@@ -130,9 +126,7 @@
 			<OnClick>
 				ItemRackOpt.SortListOnClick()
 			</OnClick>
-			<OnEnter>
-				ItemRackOpt.SortListOnEnter()
-			</OnEnter>
+			
 			<OnLeave>
 				ItemRackOpt.SortListOnLeave()
 			</OnLeave>
@@ -144,7 +138,7 @@
 			<AbsDimension x="194" y="282"/>
 		</Size>
 		<Anchors>
-			<Anchor point="TOP" relativeTo="ItemRackOptFrame" relativePoint="TOP">
+			<Anchor point="TOP" relativeTo="ItemRackOptFrame" relativePoint="TOP" >
 				<Offset>
 					<AbsDimension x="0" y="-21"/>
 				</Offset>
@@ -253,9 +247,7 @@
 			<OnEnterPressed>
 				this:ClearFocus()
 			</OnEnterPressed>
-			<OnTextChanged>
-				ItemRackOpt.EventEditValidateButtons()
-			</OnTextChanged>
+			
 		</Scripts>
 	</EditBox>
 
@@ -300,7 +292,7 @@
 				</Texture>
 			</Layer>
 			<Layer level="ARTWORK">
-				<FontString name="$parentText" inherits="GameFontHighlight" justifyH="LEFT" justifyV="CENTER" text="Pick one">
+				<FontString name="$parentText" inherits="GameFontHighlight" justifyH="LEFT" justifyV="CENTER" text="Выберите один">
 					<Size>
 						<AbsDimension x="120" y="20"/>
 					</Size>
@@ -329,9 +321,7 @@
 					<TexCoords left=".5" right=".625" top=".125" bottom=".25"/>
 				</PushedTexture>
 				<Scripts>
-					<OnClick>
-						ItemRackOpt.EventEditTypeDropDownOnClick()
-					</OnClick>
+					
 				</Scripts>
 			</Button>
 		</Frames>
@@ -342,9 +332,7 @@
 			<OnLeave>
 				getglobal(this:GetName().."Button"):UnlockHighlight()
 			</OnLeave>
-			<OnClick>
-				ItemRackOpt.EventEditTypeDropDownOnClick()
-			</OnClick>
+			
 		</Scripts>
 	</Button>
 
@@ -607,14 +595,7 @@
 				</Texture>
 			</Layer>
 			<Layer level="ARTWORK">
-				<FontString name="$parentName" font="GameFontHighlightSmall" justifyH="LEFT" text="Event Name">
-					<Anchors>
-						<Anchor point="TOPLEFT">
-							<Offset x="46" y="0"/>
-						</Anchor>
-						<Anchor point="BOTTOMRIGHT"/>
-					</Anchors>
-				</FontString>
+				
 			</Layer>
 		</Layers>
 		<Frames>
@@ -633,15 +614,9 @@
 				<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check"/>
 				<DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled"/>
 				<Scripts>
-					<OnEnter>
-						ItemRackOpt.EventListOnEnter(1)
-					</OnEnter>
-					<OnLeave>
-						ItemRackOpt.EventListOnLeave(1)
-					</OnLeave>
-					<OnClick>
-						ItemRackOpt.EventListEnabledOnClick()
-					</OnClick>
+				
+					
+					
 				</Scripts>
 			</CheckButton>
 			<Button name="$parentIcon">
@@ -665,31 +640,14 @@
 				</PushedTexture>
 				<HighlightTexture file="Interface\Buttons\CheckButtonHilight" alphaMode="ADD"/>
 				<Scripts>
-					<OnEnter>
-						ItemRackOpt.EventListOnEnter(1)
-					</OnEnter>
-					<OnLeave>
-						ItemRackOpt.EventListOnLeave(1)
-					</OnLeave>
-					<OnClick>
-						ItemRackOpt.EventListIconOnClick()
-					</OnClick>
+				
+					
 				</Scripts>
 			</Button>
 		</Frames>
 		<Scripts>
-			<OnClick>
-				ItemRackOpt.EventListOnClick()
-			</OnClick>
-			<OnDoubleClick>
-				ItemRackOpt.EventListOnDoubleClick()
-			</OnDoubleClick>
-			<OnEnter>
-				ItemRackOpt.EventListOnEnter()
-			</OnEnter>
-			<OnLeave>
-				ItemRackOpt.EventListOnLeave()
-			</OnLeave>
+		
+		
 		</Scripts>
 	</Button>
 
@@ -732,7 +690,7 @@
 					</Anchors>
 					<Color r=".5" g=".5" b=".5"/>
 				</FontString>
-				<FontString name="$parentName" font="GameFontHighlightSmall" justifyH="LEFT" text="Set Name">
+				<FontString name="$parentName" font="GameFontHighlightSmall" justifyH="LEFT" text="Установить Имя">
 					<Anchors>
 						<Anchor point="TOPLEFT" relativeTo="$parentIcon" relativePoint="TOPRIGHT"/>
 						<Anchor point="BOTTOMRIGHT" relativeTo="$parentKey" relativePoint="BOTTOMLEFT"/>
@@ -844,7 +802,7 @@
 	</Button>
 
 
-	<Frame name="ItemRackOptFrame" hidden="true" movable="true" enableMouse="true" toplevel="true">
+	<Frame name="ItemRackOptFrame" hidden="true" movable="true" enableMouse="true" toplevel="true" >
 		<Size>
 			<AbsDimension x="288" y="348"/>
 		</Size>
@@ -882,30 +840,27 @@
 			</Layer>
 		</Layers>
 		<Frames>
-			<Button name="ItemRackOptTab1" inherits="ItemRackTabTemplate" id="1" text="Config">
+			<Button name="ItemRackOptTab1" inherits="ItemRackTabTemplate" id="1" text="Настройка">
+				<Size>
+					<AbsDimension x="94" y="20"/>
+				</Size>
 				<Anchors>
 					<Anchor point="TOPRIGHT">
 						<Offset>
-							<AbsDimension x="-52" y="-6"/>
+							<AbsDimension x="-50" y="-6"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
 			</Button>
-			<Button name="ItemRackOptTab2" inherits="ItemRackTabTemplate" id="2" text="Sets">
+			<Button name="ItemRackOptTab2" inherits="ItemRackTabTemplate" id="2" text="Комплекты">
+				<Size>
+					<AbsDimension x="94" y="20"/>
+				</Size>
 				<Anchors>
 					<Anchor point="TOPRIGHT" relativeTo="ItemRackOptTab1" relativePoint="TOPLEFT"/>
 				</Anchors>
 			</Button>
-			<Button name="ItemRackOptTab3" inherits="ItemRackTabTemplate" id="3" text="Events">
-				<Anchors>
-					<Anchor point="TOPRIGHT" relativeTo="ItemRackOptTab2" relativePoint="TOPLEFT"/>
-				</Anchors>
-			</Button>
-			<Button name="ItemRackOptTab4" inherits="ItemRackTabTemplate" id="4" text="Queue">
-				<Anchors>
-					<Anchor point="TOPRIGHT" relativeTo="ItemRackOptTab3" relativePoint="TOPLEFT"/>
-				</Anchors>
-			</Button>
+		
 			<CheckButton name="ItemRackOptInv1" inherits="ItemRackOptInvTemplate" id="1">
 				<Anchors>
 					<Anchor point="TOPLEFT">
@@ -1125,191 +1080,21 @@
 
 			<!-- Events frame -->
 			<Frame name="ItemRackOptSubFrame3" inherits="ItemRackOptSubFrameTemplate">
-				<Layers>
-					<Layer level="ARTWORK">
-						<FontString name="ItemRackOptEventsLabel" inherits="GameFontHighlightSmall" text="Check an event to enable it:">
-							<Anchors>
-								<Anchor point="TOPLEFT">
-									<Offset>
-										<AbsDimension x="20" y="-8"/>
-									</Offset>
-								</Anchor>
-							</Anchors>
-						</FontString>
-					</Layer>
-				</Layers>
-				<Frames>
-					<Button name="ItemRackOptEventEdit" inherits="ItemRackOptButtonTemplate" text="Edit">
-						<Anchors>
-							<Anchor point="BOTTOM">
-								<Offset x="0" y="4"/>
-							</Anchor>
-						</Anchors>
-					</Button>
-					<Button name="ItemRackOptEventDelete" inherits="ItemRackOptButtonTemplate" text="Delete">
-						<Anchors>
-							<Anchor point="RIGHT" relativeTo="ItemRackOptEventEdit" relativePoint="LEFT">
-								<Offset x="-4" y="0"/>
-							</Anchor>
-						</Anchors>
-					</Button>
-					<Button name="ItemRackOptEventNew" inherits="ItemRackOptButtonTemplate" text="New">
-						<Anchors>
-							<Anchor point="LEFT" relativeTo="ItemRackOptEventEdit" relativePoint="RIGHT">
-								<Offset x="4" y="0"/>
-							</Anchor>
-						</Anchors>
-					</Button>
-					<Frame name="ItemRackOptEventListFrame">
-						<Size>
-							<AbsDimension x="178" y="230"/>
-						</Size>
-						<Anchors>
-							<Anchor point="TOP">
-								<Offset>
-									<AbsDimension x="0" y="-20"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border">
-							<EdgeSize>
-								<AbsValue val="16" />
-							</EdgeSize>
-							<BorderColor r=".3" g=".3" b=".3"/>
-						</Backdrop>
-						<Layers>
-							<Layer level="BACKGROUND">
-								<Texture file="Interface\ChatFrame\ChatFrameBackground">
-									<Anchors>
-										<Anchor point="TOPLEFT">
-											<Offset>
-												<AbsDimension x="4" y="-4"/>
-											</Offset>
-										</Anchor>
-										<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT">
-											<Offset>
-												<AbsDimension x="-4" y="4"/>
-											</Offset>
-										</Anchor>
-									</Anchors>
-									<Gradient>
-										<MinColor r="0.25" g="0.25" b="0.25"/>
-										<MaxColor r="0" g="0" b="0"/>
-									</Gradient>
-								</Texture>
-							</Layer>
-						</Layers>
-						<Frames>
-							<Button name="ItemRackOptEventList1" inherits="ItemRackOptEventListTemplate" id="1">
-								<Anchors>
-									<Anchor point="TOPLEFT">
-										<Offset x="8" y="-8"/>
-									</Anchor>
-								</Anchors>
-							</Button>
-							<Button name="ItemRackOptEventList2" inherits="ItemRackOptEventListTemplate" id="2">
-								<Anchors>
-									<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventList1" relativePoint="BOTTOMLEFT"/>
-								</Anchors>
-							</Button>
-							<Button name="ItemRackOptEventList3" inherits="ItemRackOptEventListTemplate" id="3">
-								<Anchors>
-									<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventList2" relativePoint="BOTTOMLEFT"/>
-								</Anchors>
-							</Button>
-							<Button name="ItemRackOptEventList4" inherits="ItemRackOptEventListTemplate" id="4">
-								<Anchors>
-									<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventList3" relativePoint="BOTTOMLEFT"/>
-								</Anchors>
-							</Button>
-							<Button name="ItemRackOptEventList5" inherits="ItemRackOptEventListTemplate" id="5">
-								<Anchors>
-									<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventList4" relativePoint="BOTTOMLEFT"/>
-								</Anchors>
-							</Button>
-							<Button name="ItemRackOptEventList6" inherits="ItemRackOptEventListTemplate" id="6">
-								<Anchors>
-									<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventList5" relativePoint="BOTTOMLEFT"/>
-								</Anchors>
-							</Button>
-							<Button name="ItemRackOptEventList7" inherits="ItemRackOptEventListTemplate" id="7">
-								<Anchors>
-									<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventList6" relativePoint="BOTTOMLEFT"/>
-								</Anchors>
-							</Button>
-							<Button name="ItemRackOptEventList8" inherits="ItemRackOptEventListTemplate" id="8">
-								<Anchors>
-									<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventList7" relativePoint="BOTTOMLEFT"/>
-								</Anchors>
-							</Button>
-							<Button name="ItemRackOptEventList9" inherits="ItemRackOptEventListTemplate" id="9">
-								<Anchors>
-									<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventList8" relativePoint="BOTTOMLEFT"/>
-								</Anchors>
-							</Button>
-							<ScrollFrame name="ItemRackOptEventListScrollFrame" inherits="FauxScrollFrameTemplate">
-								<Anchors>
-									<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventList1">
-										<Offset>
-											<AbsDimension x="0" y="1"/>
-										</Offset>
-									</Anchor>
-									<Anchor point="BOTTOMRIGHT" relativeTo="ItemRackOptEventList9">
-										<Offset>
-											<AbsDimension x="-2" y="1"/>
-										</Offset>
-									</Anchor>
-								</Anchors>
-								<Scripts>
-									<OnVerticalScroll>
-										FauxScrollFrame_OnVerticalScroll(self, offset, 24, ItemRackOpt.EventListScrollFrameUpdate)
-									</OnVerticalScroll>
-									<OnShow>
-										ItemRackOpt.EventListScrollFrameUpdate()
-									</OnShow>
-								</Scripts>
-							</ScrollFrame>
-						</Frames>
-					</Frame>
-				</Frames>
+				
 			</Frame>
 
 			<!-- Queues frame -->
 			<Frame name="ItemRackOptSubFrame4" inherits="ItemRackOptSubFrameTemplate">
-				<Layers>
-					<Layer level="BACKGROUND">
-						<FontString font="GameFontNormalLarge" text="Choose a slot to set up its auto queue order.">
-							<Size>
-								<AbsDimension x="120" y="100"/>
-							</Size>
-							<Anchors>
-								<Anchor point="TOP">
-									<Offset>
-										<AbsDimension x="0" y="-40"/>
-									</Offset>
-								</Anchor>
-							</Anchors>
-							<Color r=".8" g=".8" b=".8"/>
-						</FontString>
-					</Layer>
-				</Layers>
-				<Scripts>
-					<OnShow>
-						ItemRackOpt.QueuesFrameOnShow()
-					</OnShow>
-					<OnHide>
-						ItemRackOpt.QueuesFrameOnHide()
-					</OnHide>
-				</Scripts>
+				
 			</Frame>
 
 			<!-- Options frame -->
 			<Frame name="ItemRackOptSubFrame1" inherits="ItemRackOptSubFrameTemplate">
 				<Frames>
-					<Button name="ItemRackOptKeyBindings" inherits="ItemRackOptListButtonTemplate" text="Slot Key Bindings"/>
-					<Button name="ItemRackOptResetBar" inherits="ItemRackOptListButtonTemplate" text="Reset Buttons"/>
-					<Button name="ItemRackOptResetEvents" inherits="ItemRackOptListButtonTemplate" text="Reset Events"/>
-					<Button name="ItemRackOptResetEverything" inherits="ItemRackOptListButtonTemplate" text="Reset Everything"/>
+					
+					<Button name="ItemRackOptResetBar" inherits="ItemRackOptListButtonTemplate" text="Сброс кнопок"/>
+					
+					<Button name="ItemRackOptResetEverything" inherits="ItemRackOptListButtonTemplate" text="Сбросить все"/>
 					<Slider name="ItemRackOptButtonSpacingSlider" inherits="ItemRackOptSliderTemplate"/>
 					<Slider name="ItemRackOptAlphaSlider" inherits="ItemRackOptSliderTemplate"/>
 					<Slider name="ItemRackOptMainScaleSlider" inherits="ItemRackOptSliderTemplate"/>
@@ -1430,7 +1215,7 @@
 			<Frame name="ItemRackOptSubFrame2" inherits="ItemRackOptSubFrameTemplate">
 				<Layers>
 					<Layer level="ARTWORK">
-						<FontString name="ItemRackOptSetsChooseLabel" inherits="GameFontHighlightSmall" text="Choose a name and icon:">
+						<FontString name="ItemRackOptSetsChooseLabel" inherits="GameFontHighlightSmall" text="Выберите название и иконку:">
 							<Anchors>
 								<Anchor point="TOPLEFT">
 									<Offset>
@@ -1717,7 +1502,7 @@
 						</Frames>
 					</Frame>
 
-					<Button name="ItemRackOptSetsSaveButton" inherits="ItemRackOptButtonTemplate" text="Save">
+					<Button name="ItemRackOptSetsSaveButton" inherits="ItemRackOptButtonTemplate" text="Сохранить">
 						<Anchors>
 							<Anchor point="TOPRIGHT" relativeTo="ItemRackOptSetsIconFrame" relativePoint="BOTTOMRIGHT">
 								<Offset>
@@ -1726,7 +1511,7 @@
 							</Anchor>
 						</Anchors>
 					</Button>
-					<Button name="ItemRackOptSetsBindButton" inherits="ItemRackOptButtonTemplate" text="Bind Key">
+					<Button name="ItemRackOptSetsBindButton" inherits="ItemRackOptButtonTemplate" text="Связать клавишу">
 						<Anchors>
 							<Anchor point="TOPRIGHT" relativeTo="ItemRackOptSetsSaveButton" relativePoint="BOTTOMRIGHT">
 								<Offset>
@@ -1735,7 +1520,7 @@
 							</Anchor>
 						</Anchors>
 					</Button>
-					<Button name="ItemRackOptSetsDeleteButton" inherits="ItemRackOptButtonTemplate" text="Delete">
+					<Button name="ItemRackOptSetsDeleteButton" inherits="ItemRackOptButtonTemplate" text="Удалить">
 						<Anchors>
 							<Anchor point="TOPRIGHT" relativeTo="ItemRackOptSetsBindButton" relativePoint="TOPLEFT">
 								<Offset>
@@ -1745,24 +1530,8 @@
 						</Anchors>
 					</Button>
 
-					<CheckButton name="ItemRackOptShowHelm" inherits="ItemRackTristateTemplate">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="ItemRackOptSetsIconFrame" relativePoint="BOTTOMLEFT">
-								<Offset>
-									<AbsDimension x="62" y="-6"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-					</CheckButton>
-					<CheckButton name="ItemRackOptShowCloak" inherits="ItemRackTristateTemplate">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="ItemRackOptShowHelm" relativePoint="BOTTOMLEFT">
-								<Offset>
-									<AbsDimension x="0" y="4"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-					</CheckButton>
+				
+					
 
 					<CheckButton name="ItemRackOptSetsCurrentSet" inherits="ActionButtonTemplate">
 						<Anchors>
@@ -1804,7 +1573,7 @@
 			<Frame name="ItemRackOptSubFrame5" inherits="ItemRackOptSubFrameTemplate">
 				<Layers>
 					<Layer level="ARTWORK">
-						<FontString name="ItemRackOptPickSetsChooseLabel" inherits="GameFontHighlightSmall" text="Choose a set:">
+						<FontString name="ItemRackOptPickSetsChooseLabel" inherits="GameFontHighlightSmall" text="Выберите комплект:">
 							<Anchors>
 								<Anchor point="TOPLEFT">
 									<Offset>
@@ -1964,7 +1733,7 @@
 			<Frame name="ItemRackOptBindFrame" inherits="ItemRackOptSubFrameTemplate" enableMouse="true" enableKeyboard="true">
 				<Layers>
 					<Layer level="ARTWORK">
-						<FontString font="GameFontNormalLarge" text="Press a key to bind">
+						<FontString font="GameFontNormalLarge" text="Нажмите клавишу для привязки">
 							<Anchors>
 								<Anchor point="TOP">
 									<Offset>
@@ -2002,7 +1771,7 @@
 					</Layer>
 				</Layers>
 				<Frames>
-					<Button name="ItemRackOptBindCancel" inherits="ItemRackOptListButtonTemplate" text="Cancel">
+					<Button name="ItemRackOptBindCancel" inherits="ItemRackOptListButtonTemplate" text="Отменить">
 						<Size>
 							<AbsDimension x="60" y="26"/>
 						</Size>
@@ -2019,7 +1788,7 @@
 							</OnClick>
 						</Scripts> already defined -->
 					</Button>
-					<Button name="ItemRackOptBindUnbind" inherits="ItemRackOptListButtonTemplate" text="Unbind">
+					<Button name="ItemRackOptBindUnbind" inherits="ItemRackOptListButtonTemplate" text="Отвезать">
 						<Size>
 							<AbsDimension x="60" y="26"/>
 						</Size>
@@ -2061,7 +1830,7 @@
 			<Frame name="ItemRackOptSubFrame6" inherits="ItemRackOptSubFrameTemplate">
 				<Layers>
 					<Layer level="BACKGROUND">
-						<FontString font="GameFontNormalLarge" justifyH="CENTER" text="Select a slot to bind to a key.">
+						<FontString font="GameFontNormalLarge" justifyH="CENTER" text="Выберите слот для привязки к клавише.">
 							<Size>
 								<AbsDimension x="128" y="60"/>
 							</Size>
@@ -2076,7 +1845,7 @@
 					</Layer>
 				</Layers>
 				<Frames>
-					<Button name="ItemRackOptSlotBindCancel" inherits="ItemRackOptListButtonTemplate" text="Cancel">
+					<Button name="ItemRackOptSlotBindCancel" inherits="ItemRackOptListButtonTemplate" text="Отменить">
 						<Size>
 							<AbsDimension x="60" y="26"/>
 						</Size>
@@ -2130,23 +1899,7 @@
 					</OnHide>
 				</Scripts>
 				<Frames>
-					<CheckButton name="ItemRackOptQueueEnable" inherits="ItemRackOptSimpleCheckButton">
-						<Size>
-							<AbsDimension x="24" y="24"/>
-						</Size>
-						<Anchors>
-							<Anchor point="TOPRIGHT">
-								<Offset>
-									<AbsDimension x="-128" y="-9"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Scripts>
-							<OnClick>
-								ItemRackOpt.QueueEnableSlotOnClick()
-							</OnClick>
-						</Scripts>
-					</CheckButton>
+				
 					<Frame>
 						<Size>
 							<AbsDimension x="228" y="280"/>
@@ -2260,12 +2013,8 @@
 									</Anchor>
 								</Anchors>
 								<Scripts>
-									<OnVerticalScroll>
-										FauxScrollFrame_OnVerticalScroll(self, offset, 24, ItemRackOpt.SortListScrollFrameUpdate)
-									</OnVerticalScroll>
-									<OnShow>
-										ItemRackOpt.SortListScrollFrameUpdate()
-									</OnShow>
+									
+									
 								</Scripts>
 							</ScrollFrame>
 							<Button name="ItemRackOptSortListClose" inherits="ItemRackSmallButtonTemplate">
@@ -2346,7 +2095,7 @@
 											</Anchors>
 											<TexCoords left="0.09375" right="0.90625" top="0" bottom="1.0"/>
 										</Texture>
-										<FontString font="GameFontHighlightSmall" justifyH="RIGHT" text="Delay">
+										<FontString font="GameFontHighlightSmall" justifyH="RIGHT" text="Задержка">
 											<Anchors>
 												<Anchor point="RIGHT" relativePoint="LEFT">
 													<Offset>
@@ -2355,7 +2104,7 @@
 												</Anchor>
 											</Anchors>
 										</FontString>
-										<FontString font="GameFontHighlightSmall" justifyH="LEFT" text="sec">
+										<FontString font="GameFontHighlightSmall" justifyH="LEFT" text="сек">
 											<Anchors>
 												<Anchor point="LEFT" relativePoint="RIGHT">
 													<Offset>
@@ -2398,23 +2147,7 @@
 								</Scripts>
 							</CheckButton>
 
-							<CheckButton name="ItemRackOptItemStatsKeepEquipped" inherits="ItemRackOptSimpleCheckButton">
-								<Size>
-									<AbsDimension x="24" y="24"/>
-								</Size>
-								<Anchors>
-									<Anchor point="TOPLEFT" relativeTo="ItemRackOptItemStatsPriority" relativePoint="TOPRIGHT">
-										<Offset>
-											<AbsDimension x="36" y="0"/>
-										</Offset>
-									</Anchor>
-								</Anchors>
-								<Scripts>
-									<OnClick>
-										ItemRackOpt.ItemStatsCheckOnClick()
-									</OnClick>
-								</Scripts>
-							</CheckButton>
+							
 
 						</Frames>
 					</Frame>
@@ -2513,533 +2246,57 @@
 			</Frame>
 
 			<Frame name="ItemRackOptSubFrame8" inherits="ItemRackOptSubFrameTemplate">
-				<Layers>
-					<Layer level="ARTWORK">
-						<FontString name="ItemRackOptEventEditNameLabel" inherits="GameFontHighlightSmall" text="Name of event:">
-							<Anchors>
-								<Anchor point="TOPLEFT">
-									<Offset x="20" y="-12"/>
-								</Anchor>
-							</Anchors>
-							<Color r="0.75" g="0.75" b="0.75"/>
-						</FontString>
-						<FontString name="ItemRackOptEventEditTypeLabel" inherits="GameFontHighlightSmall" text="Type of event:">
-							<Anchors>
-								<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventEditNameLabel" relativePoint="BOTTOMLEFT">
-									<Offset x="0" y="-32"/>
-								</Anchor>
-							</Anchors>
-							<Color r="0.75" g="0.75" b="0.75"/>
-						</FontString>
-					</Layer>
-				</Layers>
+			
 				<Frames>
-					<EditBox name="ItemRackOptEventEditNameEdit" inherits="ItemRackOptBigEditBoxTemplate">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventEditNameLabel" relativePoint="TOPLEFT">
-								<Offset x="2" y="-15"/>
-							</Anchor>
-						</Anchors>
-					</EditBox>
-					<Button name="ItemRackOptEventEditTypeDrop" inherits="ItemRackOptDropDownTemplate">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventEditTypeLabel" relativePoint="TOPLEFT">
-								<Offset x="2" y="-15"/>
-							</Anchor>
-						</Anchors>
-					</Button>
-					<Button name="ItemRackOptEventEditSave" inherits="ItemRackOptButtonTemplate" text="Save">
-						<Anchors>
-							<Anchor point="BOTTOM">
-								<Offset x="0" y="4"/>
-							</Anchor>
-						</Anchors>
-					</Button>
-					<Button name="ItemRackOptEventEditCancel" inherits="ItemRackOptButtonTemplate" text="Cancel">
-						<Anchors>
-							<Anchor point="LEFT" relativeTo="ItemRackOptEventEditSave" relativePoint="RIGHT">
-								<Offset x="4" y="0"/>
-							</Anchor>
-						</Anchors>
-					</Button>
-
-					<Frame name="ItemRackOptEventEditPickTypeFrame" frameStrata="HIGH" hidden="true">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventEditTypeDrop" relativePoint="BOTTOMLEFT">
-								<Offset x="-11" y="0"/>
-							</Anchor>
-							<Anchor point="BOTTOMRIGHT" relativeTo="ItemRackOptEventEditTypeDrop" relativePoint="BOTTOMRIGHT">
-								<Offset x="9" y="-86"/>
-							</Anchor>
-						</Anchors>
-						<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border">
-							<EdgeSize>
-								<AbsValue val="16" />
-							</EdgeSize>
-							<BorderColor r=".3" g=".3" b=".3"/>
-						</Backdrop>
-						<Layers>
-							<Layer level="BACKGROUND">
-								<Texture file="Interface\ChatFrame\ChatFrameBackground">
-									<Anchors>
-										<Anchor point="TOPLEFT">
-											<Offset>
-												<AbsDimension x="4" y="-4"/>
-											</Offset>
-										</Anchor>
-										<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT">
-											<Offset>
-												<AbsDimension x="-4" y="4"/>
-											</Offset>
-										</Anchor>
-									</Anchors>
-									<Gradient>
-										<MaxColor r="0.25" g="0.25" b="0.25"/>
-										<MinColor r="0" g="0" b="0"/>
-									</Gradient>
-								</Texture>
-							</Layer>
-						</Layers>
+								
+					<Frame name="ItemRackOptEventEditBuffFrame" hidden="false">
+						
+						
 						<Frames>
-							<Button name="ItemRackOptEventEditPickTypeBuff" inherits="ItemRackOptEventEditPickTypeTemplate" text="Buff">
-								<Anchors>
-									<Anchor point="TOPLEFT">
-										<Offset x="10" y="-6"/>
-									</Anchor>
-								</Anchors>
-							</Button>
-							<Button name="ItemRackOptEventEditPickTypeStance" inherits="ItemRackOptEventEditPickTypeTemplate" text="Stance">
-								<Anchors>
-									<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventEditPickTypeBuff" relativePoint="BOTTOMLEFT"/>
-								</Anchors>
-							</Button>
-							<Button name="ItemRackOptEventEditPickTypeZone" inherits="ItemRackOptEventEditPickTypeTemplate" text="Zone">
-								<Anchors>
-									<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventEditPickTypeStance" relativePoint="BOTTOMLEFT"/>
-								</Anchors>
-							</Button>
-							<Button name="ItemRackOptEventEditPickTypeScript" inherits="ItemRackOptEventEditPickTypeTemplate" text="Script">
-								<Anchors>
-									<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventEditPickTypeZone" relativePoint="BOTTOMLEFT"/>
-								</Anchors>
-							</Button>
-						</Frames>
-						<Scripts>
-							<OnLoad>
-								this.timer = 0
-							</OnLoad>
-							<OnUpdate>
-								this.timer = this.timer + arg1
-								if this.timer > 1 then
-									this.timer = 0
-									if not MouseIsOver(this) and not MouseIsOver(ItemRackOptEventEditTypeDrop) then
-										this:Hide()
-									end
-								end
-							</OnUpdate>
-						</Scripts>
-					</Frame>
-
-					<Frame name="ItemRackOptEventEditBuffFrame" hidden="true">
-						<Anchors>
-							<Anchor point="TOPLEFT">
-								<Offset x="0" y="-92"/>
-							</Anchor>
-							<Anchor point="BOTTOMRIGHT">
-								<Offset x="0" y="28"/>
-							</Anchor>
-						</Anchors>
-						<Layers>
-							<Layer level="ARTWORK">
-								<FontString name="ItemRackOptEventEditBuffLabel" inherits="GameFontHighlightSmall" text="Name of the buff:">
-									<Anchors>
-										<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventEditTypeLabel" relativePoint="BOTTOMLEFT">
-											<Offset x="0" y="-36"/>
-										</Anchor>
-									</Anchors>
-									<Color r="0.75" g="0.75" b="0.75"/>
-								</FontString>
-							</Layer>
-						</Layers>
-						<Frames>
-							<EditBox name="ItemRackOptEventEditBuffName" inherits="ItemRackOptBigEditBoxTemplate">
-								<Anchors>
-									<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventEditBuffLabel" relativePoint="TOPLEFT">
-										<Offset x="2" y="-15"/>
-									</Anchor>
-								</Anchors>
-							</EditBox>
+						
 							<CheckButton name="ItemRackOptEventEditBuffAnyMount" inherits="ItemRackOptSimpleCheckButton">
-								<Size>
-									<AbsDimension x="26" y="26"/>
-								</Size>
-								<Anchors>
-									<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventEditBuffName" relativePoint="BOTTOMLEFT">
-										<Offset x="-6" y="-8"/>
-									</Anchor>
-								</Anchors>
-								<Scripts>
-									<OnClick>
-										ItemRackOpt.EventEditAnyMountChanged()
-									</OnClick>
-								</Scripts>
+							
 							</CheckButton>
 							<CheckButton name="ItemRackOptEventEditBuffNotInPVP" inherits="ItemRackOptSimpleCheckButton">
-								<Size>
-									<AbsDimension x="26" y="26"/>
-								</Size>
-								<Anchors>
-									<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventEditBuffAnyMount" relativePoint="BOTTOMLEFT"/>
-								</Anchors>
+							
 							</CheckButton>
 							<CheckButton name="ItemRackOptEventEditBuffUnequip" inherits="ItemRackOptSimpleCheckButton">
-								<Size>
-									<AbsDimension x="26" y="26"/>
-								</Size>
-								<Anchors>
-									<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventEditBuffNotInPVP" relativePoint="BOTTOMLEFT"/>
-								</Anchors>
+								
 							</CheckButton>
 						</Frames>
 					</Frame>
 
 					<Frame name="ItemRackOptEventEditStanceFrame" hidden="true">
-						<Anchors>
-							<Anchor point="TOPLEFT">
-								<Offset x="0" y="-92"/>
-							</Anchor>
-							<Anchor point="BOTTOMRIGHT">
-								<Offset x="0" y="28"/>
-							</Anchor>
-						</Anchors>
-						<Layers>
-							<Layer level="ARTWORK">
-								<FontString name="ItemRackOptEventEditStanceLabel" inherits="GameFontHighlightSmall" text="Which stance or form:">
-									<Anchors>
-										<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventEditTypeLabel" relativePoint="BOTTOMLEFT">
-											<Offset x="0" y="-36"/>
-										</Anchor>
-									</Anchors>
-									<Color r="0.75" g="0.75" b="0.75"/>
-								</FontString>
-								<FontString name="ItemRackOptEventEditStanceNote" inherits="GameFontHighlightSmall" justifyH="LEFT" text="You can use the stance number or the name of the stance/form. The name will only work for Druids, Rogues and Warriors.">
-									<Size>
-										<AbsDimension x="160" y="60"/>
-									</Size>
-									<Anchors>
-										<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventEditStanceLabel" relativePoint="BOTTOMLEFT">
-											<Offset x="-4" y="-30"/>
-										</Anchor>
-									</Anchors>
-									<Color r="0.75" g="0.75" b="0.75"/>
-								</FontString>
-							</Layer>
-						</Layers>
+					
 						<Frames>
 							<EditBox name="ItemRackOptEventEditStanceName" inherits="ItemRackOptBigEditBoxTemplate">
-								<Anchors>
-									<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventEditStanceLabel" relativePoint="TOPLEFT">
-										<Offset x="2" y="-15"/>
-									</Anchor>
-								</Anchors>
+								
 							</EditBox>
 							<CheckButton name="ItemRackOptEventEditStanceNotInPVP" inherits="ItemRackOptSimpleCheckButton">
-								<Size>
-									<AbsDimension x="26" y="26"/>
-								</Size>
-								<Anchors>
-									<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventEditStanceName" relativePoint="BOTTOMLEFT">
-										<Offset x="-6" y="-60"/>
-									</Anchor>
-								</Anchors>
+								
 							</CheckButton>
 							<CheckButton name="ItemRackOptEventEditStanceUnequip" inherits="ItemRackOptSimpleCheckButton">
-								<Size>
-									<AbsDimension x="26" y="26"/>
-								</Size>
-								<Anchors>
-									<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventEditStanceNotInPVP" relativePoint="BOTTOMLEFT"/>
-								</Anchors>
+								
 							</CheckButton>
 						</Frames>
 					</Frame>
 
 					<Frame name="ItemRackOptEventEditZoneFrame" hidden="true">
-						<Anchors>
-							<Anchor point="TOPLEFT">
-								<Offset x="0" y="-92"/>
-							</Anchor>
-							<Anchor point="BOTTOMRIGHT">
-								<Offset x="0" y="28"/>
-							</Anchor>
-						</Anchors>
-						<Layers>
-							<Layer level="ARTWORK">
-								<FontString name="ItemRackOptEventEditZoneLabel" inherits="GameFontHighlightSmall" text="List zone(s), one per line:">
-									<Anchors>
-										<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventEditTypeLabel" relativePoint="BOTTOMLEFT">
-											<Offset x="0" y="-36"/>
-										</Anchor>
-									</Anchors>
-									<Color r="0.75" g="0.75" b="0.75"/>
-								</FontString>
-							</Layer>
-						</Layers>
+									
 						<Frames>
-							<Frame name="ItemRackOptEventEditZoneEditBackdrop">
-								<Size>
-									<AbsDimension x="170" y="116"/>
-								</Size>
-								<Anchors>
-									<Anchor point="TOP">
-										<Offset>
-											<AbsDimension x="0" y="-20"/>
-										</Offset>
-									</Anchor>
-								</Anchors>
-								<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border">
-									<EdgeSize>
-										<AbsValue val="16" />
-									</EdgeSize>
-									<BorderColor r=".3" g=".3" b=".3"/>
-								</Backdrop>
-								<Layers>
-									<Layer level="BACKGROUND">
-										<Texture file="Interface\ChatFrame\ChatFrameBackground">
-											<Anchors>
-												<Anchor point="TOPLEFT">
-													<Offset>
-														<AbsDimension x="4" y="-4"/>
-													</Offset>
-												</Anchor>
-												<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT">
-													<Offset>
-														<AbsDimension x="-4" y="4"/>
-													</Offset>
-												</Anchor>
-											</Anchors>
-											<Gradient>
-												<MinColor r="0.25" g="0.25" b="0.25"/>
-												<MaxColor r="0" g="0" b="0"/>
-											</Gradient>
-										</Texture>
-									</Layer>
-								</Layers>
-							</Frame>
-							<ScrollFrame name="ItemRackOptEventEditZoneEditScrollFrame" inherits="UIPanelScrollFrameTemplate">
-								<Anchors>
-									<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventEditZoneEditBackdrop">
-										<Offset>
-											<AbsDimension x="12" y="-12"/>
-										</Offset>
-									</Anchor>
-									<Anchor point="BOTTOMRIGHT" relativeTo="ItemRackOptEventEditZoneEditBackdrop">
-										<Offset>
-											<AbsDimension x="-32" y="8"/>
-										</Offset>
-									</Anchor>
-								</Anchors>
-								<ScrollChild>
-									<EditBox name="ItemRackOptEventEditZoneEditBox" multiLine="true" maxLines="9" letters="4096" nonspacewrap="true" spacing="1" autoFocus="false">
-										<Size>
-											<AbsDimension x="120" y="116"/>
-										</Size>
-										<Anchors>
-											<Anchor point="TOPLEFT"/>
-											<Anchor point="BOTTOMRIGHT"/>
-										</Anchors>
-										<Scripts>
-											<OnEscapePressed>
-												this:ClearFocus();
-											</OnEscapePressed>
-											<OnTextChanged>
-												ItemRackOpt.EventEditValidateButtons()
-											</OnTextChanged>
-										</Scripts>
-										<FontString inherits="GameFontHighlightSmall"/>
-									</EditBox>
-								</ScrollChild>
-							</ScrollFrame>
-							<Button>
-								<Anchors>
-									<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventEditZoneEditBackdrop" relativePoint="TOPLEFT">
-										<Offset>
-											<AbsDimension x="8" y="-8"/>
-										</Offset>
-									</Anchor>
-									<Anchor point="BOTTOMRIGHT" relativeTo="ItemRackOptEventEditZoneEditBackdrop" relativePoint="BOTTOMRIGHT">
-										<Offset>
-											<AbsDimension x="-8" y="8"/>
-										</Offset>
-									</Anchor>
-								</Anchors>
-								<Scripts>
-									<OnClick>
-										ItemRackOptEventEditZoneEditBox:SetFocus()
-									</OnClick>
-								</Scripts>
-							</Button>
+										
 							<CheckButton name="ItemRackOptEventEditZoneUnequip" inherits="ItemRackOptSimpleCheckButton">
-								<Size>
-									<AbsDimension x="26" y="26"/>
-								</Size>
-								<Anchors>
-									<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventEditZoneLabel" relativePoint="BOTTOMLEFT">
-										<Offset x="-4" y="-118"/>
-									</Anchor>
-								</Anchors>
+								
 							</CheckButton>
 						</Frames>
 					</Frame>
 
-					<Frame name="ItemRackOptEventEditScriptFrame" hidden="false">
-						<Anchors>
-							<Anchor point="TOPLEFT">
-								<Offset x="0" y="-92"/>
-							</Anchor>
-							<Anchor point="BOTTOMRIGHT">
-								<Offset x="0" y="28"/>
-							</Anchor>
-						</Anchors>
-						<Layers>
-							<Layer level="ARTWORK">
-								<FontString name="ItemRackOptEventEditScriptTriggerLabel" inherits="GameFontHighlightSmall" text="Event Trigger:">
-									<Anchors>
-										<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventEditTypeLabel" relativePoint="BOTTOMLEFT">
-											<Offset x="0" y="-36"/>
-										</Anchor>
-									</Anchors>
-									<Color r="0.75" g="0.75" b="0.75"/>
-								</FontString>
-								<FontString name="ItemRackOptEventEditScriptEditLabel" inherits="GameFontHighlightSmall" text="Event Script:">
-									<Anchors>
-										<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventEditScriptTriggerLabel" relativePoint="BOTTOMLEFT">
-											<Offset x="0" y="-32"/>
-										</Anchor>
-									</Anchors>
-									<Color r="0.75" g="0.75" b="0.75"/>
-								</FontString>
-							</Layer>
-						</Layers>
-						<Frames>
-							<EditBox name="ItemRackOptEventEditScriptTrigger" inherits="ItemRackOptBigEditBoxTemplate">
-								<Anchors>
-									<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventEditScriptTriggerLabel" relativePoint="TOPLEFT">
-										<Offset x="2" y="-15"/>
-									</Anchor>
-								</Anchors>
-							</EditBox>
-							<Frame name="ItemRackOptEventEditScriptEditBackdrop">
-								<Size>
-									<AbsDimension x="170" y="96"/>
-								</Size>
-								<Anchors>
-									<Anchor point="TOP">
-										<Offset>
-											<AbsDimension x="-1" y="-60"/>
-										</Offset>
-									</Anchor>
-								</Anchors>
-								<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border">
-									<EdgeSize>
-										<AbsValue val="16" />
-									</EdgeSize>
-									<BorderColor r=".3" g=".3" b=".3"/>
-								</Backdrop>
-								<Layers>
-									<Layer level="BACKGROUND">
-										<Texture file="Interface\ChatFrame\ChatFrameBackground">
-											<Anchors>
-												<Anchor point="TOPLEFT">
-													<Offset>
-														<AbsDimension x="4" y="-4"/>
-													</Offset>
-												</Anchor>
-												<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT">
-													<Offset>
-														<AbsDimension x="-4" y="4"/>
-													</Offset>
-												</Anchor>
-											</Anchors>
-											<Gradient>
-												<MinColor r="0.25" g="0.25" b="0.25"/>
-												<MaxColor r="0" g="0" b="0"/>
-											</Gradient>
-										</Texture>
-									</Layer>
-								</Layers>
-							</Frame>
-							<ScrollFrame name="ItemRackOptEventEditScriptEditScrollFrame" inherits="UIPanelScrollFrameTemplate">
-								<Anchors>
-									<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventEditScriptEditBackdrop">
-										<Offset>
-											<AbsDimension x="12" y="-12"/>
-										</Offset>
-									</Anchor>
-									<Anchor point="BOTTOMRIGHT" relativeTo="ItemRackOptEventEditScriptEditBackdrop">
-										<Offset>
-											<AbsDimension x="-32" y="8"/>
-										</Offset>
-									</Anchor>
-								</Anchors>
-								<ScrollChild>
-									<EditBox name="ItemRackOptEventEditScriptEditBox" multiLine="true" maxLines="9" letters="4096" nonspacewrap="true" spacing="1" autoFocus="false">
-										<Size>
-											<AbsDimension x="120" y="96"/>
-										</Size>
-										<Anchors>
-											<Anchor point="TOPLEFT"/>
-											<Anchor point="BOTTOMRIGHT"/>
-										</Anchors>
-										<Scripts>
-											<OnEscapePressed>
-												this:ClearFocus();
-											</OnEscapePressed>
-											<OnTextChanged>
-												ItemRackOpt.EventEditValidateButtons()
-											</OnTextChanged>
-										</Scripts>
-										<FontString inherits="GameFontHighlightSmall"/>
-									</EditBox>
-								</ScrollChild>
-							</ScrollFrame>
-							<Button>
-								<Anchors>
-									<Anchor point="TOPLEFT" relativeTo="ItemRackOptEventEditScriptEditBackdrop" relativePoint="TOPLEFT">
-										<Offset>
-											<AbsDimension x="8" y="-8"/>
-										</Offset>
-									</Anchor>
-									<Anchor point="BOTTOMRIGHT" relativeTo="ItemRackOptEventEditScriptEditBackdrop" relativePoint="BOTTOMRIGHT">
-										<Offset>
-											<AbsDimension x="-8" y="8"/>
-										</Offset>
-									</Anchor>
-								</Anchors>
-								<Scripts>
-									<OnClick>
-										ItemRackOptEventEditScriptEditBox:SetFocus()
-									</OnClick>
-								</Scripts>
-							</Button>
-							<Button name="ItemRackOptEventEditExpand" inherits="ItemRackOptButtonTemplate" text="Editor">
-								<Anchors>
-									<Anchor point="RIGHT" relativeTo="ItemRackOptEventEditSave" relativePoint="LEFT">
-										<Offset x="-4" y="0"/>
-									</Anchor>
-								</Anchors>
-							</Button>
-						</Frames>
-					</Frame>
+				
 
 				</Frames>
 				<Scripts>
-					<OnShow>
-						ItemRackOpt.EventEditOnShow()
-					</OnShow>
-					<OnHide>
-						ItemRackOpt.EventEditOnHide()
-					</OnHide>
+					
+				
 				</Scripts>
 			</Frame>
 		</Frames>
@@ -3082,17 +2339,7 @@
 		</Backdrop>
 		<Layers>
 			<Layer level="ARTWORK">
-				<FontString name="ItemRackFloatingEditorTitle" font="GameFontHighlight" justifyH="LEFT" justifyV="CENTER" text="Event Script:">
-					<Anchors>
-						<Anchor point="TOPLEFT">
-							<Offset x="16" y="-8"/>
-						</Anchor>
-						<Anchor point="BOTTOMRIGHT" relativeTo="ItemRackFloatingEditor" relativePoint="TOPRIGHT">
-							<Offset x="-32" y="-19"/>
-						</Anchor>
-					</Anchors>
-					<Color r=".7" g=".7" b=".7"/>
-				</FontString>
+				
 			</Layer>
 		</Layers>
 		<Frames>
@@ -3168,9 +2415,7 @@
 									<Anchor point="BOTTOMRIGHT"/>
 								</Anchors>
 								<Scripts>
-									<OnTextChanged>
-										ItemRackOpt.EventEditValidateButtons()
-									</OnTextChanged>
+									
 									<OnEscapePressed>
 										this:ClearFocus();
 									</OnEscapePressed>
@@ -3255,7 +2500,7 @@
 					<TexCoords left=".5" right=".625" top=".25" bottom=".375"/>
 				</PushedTexture>
 			</Button>
-			<Button name="ItemRackFloatingEditorSave" inherits="ItemRackOptButtonTemplate" text="Save">
+			<Button name="ItemRackFloatingEditorSave" inherits="ItemRackOptButtonTemplate" text="Сохранить">
 				<Size>
 					<AbsDimension x="42" y="20"/>
 				</Size>
@@ -3265,7 +2510,7 @@
 					</Anchor>
 				</Anchors>
 			</Button>
-			<Button name="ItemRackFloatingEditorTest" inherits="ItemRackOptButtonTemplate" text="Test">
+			<Button name="ItemRackFloatingEditorTest" inherits="ItemRackOptButtonTemplate" text="Тест">
 				<Size>
 					<AbsDimension x="42" y="20"/>
 				</Size>
@@ -3275,7 +2520,7 @@
 					</Anchor>
 				</Anchors>
 			</Button>
-			<Button name="ItemRackFloatingEditorUndo" inherits="ItemRackOptButtonTemplate" text="Undo">
+			<Button name="ItemRackFloatingEditorUndo" inherits="ItemRackOptButtonTemplate" text="Отменить">
 				<Size>
 					<AbsDimension x="42" y="20"/>
 				</Size>
@@ -3296,9 +2541,7 @@
 			<OnMouseUp>
 				this:StopMovingOrSizing()
 			</OnMouseUp>
-			<OnHide>
-				ItemRackOpt.FloatingEditorOnHide()
-			</OnHide>
+			
 		</Scripts>
 	</Frame>
 

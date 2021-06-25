@@ -11,8 +11,6 @@ ItemRackUser = {
 	Queues = {}, -- item auto queue sorts
 	QueuesEnabled = {}, -- which queues are enabled
 	Locked = "OFF", -- buttons locked
-	EnableEvents = "ON", -- whether all events enabled
-	EnableQueues = "ON", -- whether all auto queues enabled
 	ButtonSpacing = 4, -- padding between docked buttons
 	Alpha = 1, -- alpha of buttons
 	MainScale = 1, -- scale of the dockable buttons
@@ -22,31 +20,27 @@ ItemRackUser = {
 }
 
 ItemRackSettings = {
-	MenuOnShift = "OFF", -- open menus on shift only
-	MenuOnRight = "OFF", -- open menus on right-click only
-	HideOOC = "OFF", -- hide dockable buttons when out of combat
-	Notify = "ON", -- notify when a used item comes off cooldown
-	NotifyThirty = "OFF", -- notify when a used item reaches 30 seconds cooldown
-	NotifyChatAlso = "OFF", -- send cooldown notifications to chat also
+	
+	
 	ShowTooltips = "ON", -- show all itemrack tooltips
+	
 	TinyTooltips = "OFF", -- whether to condense tooltips to most important info
 	TooltipFollow = "OFF", -- whether tooltip follows pointer
-	CooldownCount = "OFF", -- whether cooldowns displayed numerically over buttons
-	LargeNumbers = "OFF", -- whether cooldown numbers displayed in large font
+	
+
 	AllowEmpty = "ON", -- allow empty slot as a choice in menus
-	HideTradables = "OFF", -- allow non-soulbound gear to appear in menu
+	
 	AllowHidden = "ON", -- allow the ability to hide items/sets in the menu with alt+click
 	ShowMinimap = "ON", -- whether to show the minimap button
 	SquareMinimap = "OFF", -- whether to position minimap button as if on a square minimap
-	TrinketMenuMode = "OFF", -- whether to merge top/bottom trinkets to one menu (leftclick=top,rightclick=bottom)
+	
 	AnotherOther = "OFF", -- whether to dock the merged trinket menu to bottom trinket
 	EquipToggle = "OFF", -- whether to toggle equipping a set when choosing to equip it
-	ShowHotKeys = "OFF", -- show key bindings on dockable buttons
-	Cooldown90 = "OFF", -- whether to count cooldown in seconds at 90 instead of 60
+	
+	
 	EquipOnSetPick = "OFF", -- whether to equip a set when picked in the set tab of options
 	MinimapTooltip = "ON", -- whether to display the minimap button tooltip to explain clicks
-	CharacterSheetMenus = "ON", -- whether to display slot menus on mouseover of the character sheet
-	DisableAltClick = "OFF", -- whether to disable Alt+click from toggling auto queue (to allow self cast through)
+	
 }
 
 -- these are default items with non-standard behavior
@@ -73,26 +67,26 @@ ItemRack.BankSlots = { -1,5,6,7,8,9,10,11 }
 ItemRack.KnownItems = {} -- cache of known item locations for fast lookup
 
 ItemRack.SlotInfo = {
-	[0] = { name="AmmoSlot", real="Ammo", swappable=1, INVTYPE_AMMO=1 },
-	[1] = { name="HeadSlot", real="Head", INVTYPE_HEAD=1 },
-	[2] = { name="NeckSlot", real="Neck", INVTYPE_NECK=1 },
-	[3] = { name="ShoulderSlot", real="Shoulder", INVTYPE_SHOULDER=1 },
-	[4] = { name="ShirtSlot", real="Shirt", INVTYPE_BODY=1 },
-	[5] = { name="ChestSlot", real="Chest", INVTYPE_CHEST=1, INVTYPE_ROBE=1 },
-	[6] = { name="WaistSlot", real="Waist", INVTYPE_WAIST=1 },
-	[7] = { name="LegsSlot", real="Legs", INVTYPE_LEGS=1 },
-	[8] = { name="FeetSlot", real="Feet", INVTYPE_FEET=1 },
-	[9] = { name="WristSlot", real="Wrist", INVTYPE_WRIST=1 },
-	[10] = { name="HandsSlot", real="Hands", INVTYPE_HAND=1 },
-	[11] = { name="Finger0Slot", real="Top Finger", INVTYPE_FINGER=1, other=12 },
-	[12] = { name="Finger1Slot", real="Bottom Finger", INVTYPE_FINGER=1, other=11 },
-	[13] = { name="Trinket0Slot", real="Top Trinket", INVTYPE_TRINKET=1, other=14 },
-	[14] = { name="Trinket1Slot", real="Bottom Trinket", INVTYPE_TRINKET=1, other=13 },
-	[15] = { name="BackSlot", real="Cloak", INVTYPE_CLOAK=1 },
-	[16] = { name="MainHandSlot", real="Main hand", swappable=1, INVTYPE_WEAPONMAINHAND=1, INVTYPE_2HWEAPON=1, INVTYPE_WEAPON=1, other=17 },
-	[17] = { name="SecondaryHandSlot", real="Off hand", swappable=1, INVTYPE_WEAPON=1, INVTYPE_WEAPONOFFHAND=1, INVTYPE_SHIELD=1, INVTYPE_HOLDABLE=1, other=16 },
-	[18] = { name="RangedSlot", real="Ranged", swappable=1, INVTYPE_RANGED=1, INVTYPE_THROWN=1, INVTYPE_RANGEDRIGHT=1, INVTYPE_RELIC=1 },
-	[19] = { name="TabardSlot", real="Tabard", INVTYPE_TABARD=1 },
+	[0] = { name="AmmoSlot", real="Боеприпасы", swappable=1, INVTYPE_AMMO=1 },
+	[1] = { name="HeadSlot", real="Голова", INVTYPE_HEAD=1 },
+	[2] = { name="NeckSlot", real="Шея", INVTYPE_NECK=1 },
+	[3] = { name="ShoulderSlot", real="Плечо", INVTYPE_SHOULDER=1 },
+	[4] = { name="ShirtSlot", real="Рубашка", INVTYPE_BODY=1 },
+	[5] = { name="ChestSlot", real="Грудь", INVTYPE_CHEST=1, INVTYPE_ROBE=1 },
+	[6] = { name="WaistSlot", real="Пояс", INVTYPE_WAIST=1 },
+	[7] = { name="LegsSlot", real="Ноги", INVTYPE_LEGS=1 },
+	[8] = { name="FeetSlot", real="Ступни", INVTYPE_FEET=1 },
+	[9] = { name="WristSlot", real="Запястье", INVTYPE_WRIST=1 },
+	[10] = { name="HandsSlot", real="Руки", INVTYPE_HAND=1 },
+	[11] = { name="Finger0Slot", real="Верхний палец", INVTYPE_FINGER=1, other=12 },
+	[12] = { name="Finger1Slot", real="Нижний палец", INVTYPE_FINGER=1, other=11 },
+	[13] = { name="Trinket0Slot", real="Верхний аксессуар", INVTYPE_TRINKET=1, other=14 },
+	[14] = { name="Trinket1Slot", real="Нижний аксессуар", INVTYPE_TRINKET=1, other=13 },
+	[15] = { name="BackSlot", real="Плащ", INVTYPE_CLOAK=1 },
+	[16] = { name="MainHandSlot", real="Главная рука", swappable=1, INVTYPE_WEAPONMAINHAND=1, INVTYPE_2HWEAPON=1, INVTYPE_WEAPON=1, other=17 },
+	[17] = { name="SecondaryHandSlot", real="Левая рука", swappable=1, INVTYPE_WEAPON=1, INVTYPE_WEAPONOFFHAND=1, INVTYPE_SHIELD=1, INVTYPE_HOLDABLE=1, other=16 },
+	[18] = { name="RangedSlot", real="Дальний бой", swappable=1, INVTYPE_RANGED=1, INVTYPE_THROWN=1, INVTYPE_RANGEDRIGHT=1, INVTYPE_RELIC=1 },
+	[19] = { name="TabardSlot", real="Накидка", INVTYPE_TABARD=1 },
 }
 
 ItemRack.DockInfo = {  -- docking-dependent values
@@ -118,29 +112,25 @@ ItemRack.RunAfterCombat = {} -- functions to run when player drops out of combat
 
 -- miscellaneous tooltips ElementName, Line1, Line2
 ItemRack.TooltipInfo = {
-	{"ItemRackButtonMenuLock","Lock Buttons","Toggle locked state to prevent buttons/menus from moving and to hide borders and control buttons.\n\nHold ALT while you open a menu to access these control buttons while locked."},
-	{"ItemRackButtonMenuQueue","Auto Queue","Set up the auto queue for this slot.\n\nAlt+click the slot this menu opened from to toggle its auto queue on/off."},
-	{"ItemRackButtonMenuOptions","Options","Open Options window to change settings, configure sets or auto queues."},
-	{"ItemRackButtonMenuClose","Remove","Remove the slot this menu opened from."},
-	{"ItemRackOptSetsHideCheckButton","Hide Set","Check this to make the set hidden in menus."},
-	{"ItemRackOptItemStatsPriority","Priority","Check this to make this item auto equip when it comes off cooldown even if the equipped item is off cooldown and waiting to be used."},
-	{"ItemRackOptItemStatsKeepEquipped","Pause Queue","Check this to suspend the auto queue for this slot until the item is unequipped. (For instance if you have another mod handling the auto equip of a riding crop."},
-	{"ItemRackOptQueueEnable","Auto Queue This Slot","Check this to allow this slot to auto queue.  When an item goes on cooldown, it will swap for an item higher on the list that's off cooldown."},
-	{"ItemRackOptSetsHideCheckButton","Hide","Hide this set in menus. (Equivalent of Alt+clicking the set in the menu)"},
-	{"ItemRackOptSetsSaveButton","Save Set","Save this set. Some settings like key binding, cloak/helm visibility and whether it's hidden can only be changed to a saved set."},
-	{"ItemRackOptSetsDeleteButton","Delete Set","Delete this set definition. If you want to remove it from the menu and may want it again in the future, check 'Hide' to the left."},
-	{"ItemRackOptSetsBindButton","Bind Key to Set","This will let you bind a key or key combination to equip a set."},
-	{"ItemRackOptEventNew","New Event","Create a new event."},
-	{"ItemRackOptEventEdit","Edit Event","Edit this event. Note: if you edit the name and save, it will create a copy of the event with the new name."},
-	{"ItemRackOptEventDelete","Delete Event","If this event is enabled or has a set associated with it, it will remove the tags and drop it in the list.  If this is an untagged event, it will delete it entirely."},
-	{"ItemRackOptEventEditSave","Save Event","Saves changes to this event.  Note: if you edit the name and save, it will create a copy of the event with the new name."},
-	{"ItemRackOptEventEditCancel","Cancel Changes","Cancel any changes just made to this event and return to event list."},
-	{"ItemRackOptEventEditBuffAnyMount","Any mount","Checking this will check if any mount is active instead of a specific buff."},
-	{"ItemRackOptEventEditExpand","Edit in Editor","This will detach the script edit box above to a resizable text editor."},
-	{"ItemRackFloatingEditorUndo","Undo","Revert the text to its last saved state."},
-	{"ItemRackFloatingEditorTest","Test","Run the text below as a script to make sure there are no syntax errors. (Script Errors in Interface Options should be enabled to see any)\nNote: This test cannot simulate any condition or test for expected behavior other than the ability to run."},
-	{"ItemRackFloatingEditorSave","Save Event","Save changes to this event and return to the event list."},
-	{"ItemRackOptToggleInvAll","Toggle All","This will toggle between selecting all slots and selecting no slots."}
+	{"ItemRackButtonMenuLock","Кнопки блокировки","Переключение в заблокированное состояние для предотвращения перемещения кнопок/меню, а также для скрытия границ и кнопок управления. \n\nДержите ALT, пока открываете меню для доступа к этим кнопкам управления в заблокированном состоянии."},
+	{"ItemRackButtonMenuOptions","Опции","Открыть окно настройки для изменения настроек или настройки наборов."},
+	{"ItemRackButtonMenuClose","Удалить","Удалить слот, из которого открывается это меню."},
+	{"ItemRackOptSetsHideCheckButton","Спрятать комплект ","Проверь это, чтобы скрыть набор в меню"},
+	{"ItemRackOptItemStatsPriority","Приоритет","Проверьте это, чтобы сделать этот пункт автоматического оснащения, когда он выходит из холодильника, даже если оборудованный пункт выключен холодильник и ждет, чтобы использоваться."},
+	{"ItemRackOptSetsHideCheckButton","Спрятать","Спрячь этот набор в меню. (Эквивалент от нажатия Alt+ в меню)."},
+	{"ItemRackOptSetsSaveButton","Сохранить комплект","Сохранить этот набор. Некоторые настройки, такие как привязка клавиш, видимость маскировки/шлема и скрытость, могут быть изменены только на сохраненный набор."},
+	{"ItemRackOptSetsDeleteButton","Удалить комплект","Удалите это определение набора. Если вы хотите удалить его из меню и, возможно, захотите удалить его снова в будущем, установите флажок 'Скрыть' слева."},
+	{"ItemRackOptSetsBindButton","Привязать клавишу к комплекту","Это позволит вам привязать клавишу или комбинацию клавиш для оснащения набора."},
+	{"ItemRackOptEventNew","Новое событие","Создать новое событие."},
+	{"ItemRackOptEventDelete","Удалить событие","Если это событие включено или имеет связанный с ним набор, то он удалит теги и бросит его в список.  Если это событие является немаркированным, оно удалит его полностью."},
+	
+	
+	{"ItemRackOptEventEditBuffAnyMount","Любое крепление","При этом проверяется, активен ли какой-либо крепеж вместо определенного буфера."},
+	{"ItemRackOptEventEditExpand","Редактирование в редакторе","Это отсоединит окно редактирования скрипта выше к текстовому редактору с возможностью изменения размера."},
+	{"ItemRackFloatingEditorUndo","Отменить","Переверните текст в его последнее сохраненное состояние."},
+	{"ItemRackFloatingEditorTest","Тест","Запустите текст ниже в виде скрипта, чтобы убедиться в отсутствии синтаксических ошибок. (Ошибки сценария в настройках интерфейса должны быть включены, чтобы увидеть any)\nNote: Этот тест не может симулировать любое условие или тест на ожидаемое поведение, кроме возможности запуска."},
+	{"ItemRackFloatingEditorSave","Сохранить событие","Сохраните изменения в этом событии и вернитесь к списку событий.."},
+	{"ItemRackOptToggleInvAll","Переключить все","Это переключит между выбором всех слотов и выбором без слотов."}
 }
 
 ItemRack.BankOpen = nil -- 1 if bank is open, nil if not
@@ -163,7 +153,7 @@ end
 function ItemRack.OnPlayerLogin()
 	local handler = ItemRack.EventHandlers
 	handler.ITEM_LOCK_CHANGED = ItemRack.OnItemLockChanged
-	handler.ACTIONBAR_UPDATE_COOLDOWN = ItemRack.UpdateButtonCooldowns
+	
 	handler.UNIT_INVENTORY_CHANGED = ItemRack.OnUnitInventoryChanged
 	handler.UPDATE_BINDINGS = ItemRack.KeyBindingsChanged
 	handler.PLAYER_REGEN_ENABLED = ItemRack.OnLeavingCombatOrDeath
@@ -180,7 +170,7 @@ function ItemRack.OnPlayerLogin()
 
 	ItemRack.InitCore()
 	ItemRack.InitButtons()
-	ItemRack.InitEvents()
+	
 end
 
 function ItemRack.OnCastingStart()
@@ -248,9 +238,7 @@ function ItemRack.OnLeavingCombatOrDeath()
 			ItemRackOpt.ListScrollFrameUpdate()
 			ItemRackOptSetsBindButton:Enable()
 		end
-		if ItemRack.ReflectHideOOC then
-			ItemRack.ReflectHideOOC()
-		end
+		
 		if next(ItemRack.RunAfterCombat) then
 			for i=1,#(ItemRack.RunAfterCombat) do
 				ItemRack[ItemRack.RunAfterCombat[i]]()
@@ -268,9 +256,7 @@ function ItemRack.OnEnteringCombat()
 		ItemRackOpt.ListScrollFrameUpdate()
 		ItemRackOptSetsBindButton:Disable()
 	end
-	if ItemRack.ReflectHideOOC then
-		ItemRack.ReflectHideOOC()
-	end
+	
 end
 
 function ItemRack.OnBankClose()
@@ -332,7 +318,7 @@ function ItemRack.InitCore()
 
 	ItemRack.CreateTimer("MenuMouseover",ItemRack.MenuMouseover,.25,1)
 	ItemRack.CreateTimer("TooltipUpdate",ItemRack.TooltipUpdate,1,1)
-	ItemRack.CreateTimer("CooldownUpdate",ItemRack.CooldownUpdate,1,1)
+	
 	ItemRack.CreateTimer("MinimapDragging",ItemRack.MinimapDragging,0,1)
 	ItemRack.CreateTimer("LocksChanged",ItemRack.LocksChanged,.2)
 	ItemRack.CreateTimer("MinimapShine",ItemRack.MinimapShineUpdate,0,1)
@@ -361,7 +347,7 @@ function ItemRack.InitCore()
 		this:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 		this:RegisterEvent("UNIT_SPELLCAST_INTERRUPTED")
 	end
-	ItemRack.StartTimer("CooldownUpdate")
+	
 	ItemRack.MoveMinimap()
 	ItemRack.ReflectAlpha()
 	ItemRack.SetSetBindings()
@@ -375,13 +361,12 @@ function ItemRack.InitCore()
 	IsSetEquipped = ItemRack.IsSetEquipped
 
 	-- new option defaults to pre-existing settings here
-	ItemRackSettings.Cooldown90 = ItemRackSettings.Cooldown90 or "OFF" -- 2.14
+	
 	ItemRackSettings.EquipOnSetPick = ItemRackSettings.EquipOnSetPick or "OFF" -- 2.21
 	ItemRackUser.SetMenuWrap = ItemRackUser.SetMenuWrap or "OFF" -- 2.21
 	ItemRackUser.SetMenuWrapValue = ItemRackUser.SetMenuWrapValue or 3 -- 2.21
 	ItemRackSettings.MinimapTooltip = ItemRackSettings.MinimapTooltip or "ON" -- 2.21
-	ItemRackSettings.CharacterSheetMenus = ItemRackSettings.CharacterSheetMenus or "ON" -- 2.22
-	ItemRackSettings.DisableAltClick = ItemRackSettings.DisableAltClick or "OFF" -- 2.23
+	
 end
 
 function ItemRack.Print(msg)
@@ -453,7 +438,7 @@ function ItemRack.GetInfoByID(id)
 		local itemID = string.match(id,"^(%-?%d+)")
 		name,_,quality,_,_,_,_,_,equip,texture = GetItemInfo(itemID)
 	else
-		name,texture,quality = "(empty)","Interface\\Icons\\INV_Misc_QuestionMark",0
+		name,texture,quality = "(пусто)","Interface\\Icons\\INV_Misc_QuestionMark",0
 	end
 	return name,texture,equip,quality
 end
@@ -834,7 +819,7 @@ function ItemRack.BuildMenu(id,menuInclude)
 			for j=1,GetContainerNumSlots(i) do
 				itemID = ItemRack.GetID(i,j)
 				itemName,itemTexture,equipSlot = ItemRack.GetInfoByID(itemID)
-				if ItemRack.SlotInfo[id][equipSlot] and ItemRack.PlayerCanWear(id,i,j) and (ItemRackSettings.HideTradables=="OFF" or ItemRack.IsSoulbound(i,j)) then
+				if ItemRack.SlotInfo[id][equipSlot] and ItemRack.PlayerCanWear(id,i,j) and (ItemRack.IsSoulbound(i,j)) then
 					if id~=0 or not ItemRack.AlreadyInMenu(itemID) then
 						ItemRack.AddToMenu(itemID)
 					end
@@ -846,7 +831,7 @@ function ItemRack.BuildMenu(id,menuInclude)
 				for j=1,GetContainerNumSlots(i) do
 					itemID = ItemRack.GetID(i,j)
 					itemName,itemTexture,equipSlot = ItemRack.GetInfoByID(itemID)
-					if ItemRack.SlotInfo[id][equipSlot] and ItemRack.PlayerCanWear(id,i,j) and (ItemRackSettings.HideTradables=="OFF" or ItemRack.IsSoulbound(i,j)) then
+					if ItemRack.SlotInfo[id][equipSlot] and ItemRack.PlayerCanWear(id,i,j) and (ItemRack.IsSoulbound(i,j)) then
 						if id~=0 or not ItemRack.AlreadyInMenu(itemID) then
 							ItemRack.AddToMenu(itemID)
 						end
@@ -989,22 +974,10 @@ function ItemRack.UpdateMenuCooldowns()
 			getglobal("ItemRackMenu"..i.."Cooldown"):Hide()
 		end
 	end
-	ItemRack.WriteMenuCooldowns()
+	
 end
 
-function ItemRack.WriteMenuCooldowns()
-	if ItemRackSettings.CooldownCount=="ON" and ItemRackMenuFrame:IsVisible() then
-		local id
-		for i=1,#(ItemRack.Menu) do
-			id = string.match(ItemRack.Menu[i],"(%-?%d+):")
-			if id then
-				ItemRack.WriteCooldown(getglobal("ItemRackMenu"..i.."Time"),GetItemCooldown(id))
-			else
-				getglobal("ItemRackMenu"..i.."Time"):SetText("")
-			end
-		end
-	end
-end
+
 
 function ItemRack.MenuMouseover()
 	local frame = GetMouseFocus()
@@ -1119,9 +1092,7 @@ function ItemRack.MenuOnClick()
 				ItemRackOpt.Inv[ItemRack.menuOpen].selected = 1
 				ItemRackOpt.UpdateInv()
 			end
-			if ItemRack.menuOpen>=13 and ItemRack.menuOpen<=14 and ItemRackSettings.TrinketMenuMode=="ON" and ItemRackUser.Buttons[13] and ItemRackUser.Buttons[14] then
-				ItemRack.menuOpen = arg1=="RightButton" and 14 or 13
-			end
+			
 			ItemRack.EquipItemByID(item,ItemRack.menuOpen)
 			ItemRackMenuFrame:Hide()
 		end
@@ -1136,6 +1107,8 @@ function ItemRack.MenuOnClick()
 			ItemRack.ToggleSet(item)
 		else
 			ItemRack.EquipSet(item)
+			ItemRack.EquipSet(item)
+
 		end
 		if not ItemRack.BankOpen then
 			ItemRack.StopTimer("MenuMouseover")
@@ -1266,7 +1239,7 @@ function ItemRack.UpdateCombatQueue()
 			queue:Show()
 		elseif ItemRackUser.QueuesEnabled[i] then
 			queue:SetTexture("Interface\\AddOns\\ItemRack\\ItemRackGear")
-			queue:SetAlpha(ItemRackUser.EnableQueues=="ON" and 1 or .5)
+			
 			queue:Show()
 		elseif i~=20 then
 			queue:Hide()
@@ -1452,7 +1425,7 @@ function ItemRack.SetTooltip(setname)
 				if set[i] then
 					itemName = ItemRack.GetInfoByID(set[i])
 					if itemName then
-						if itemName~="(empty)" and ItemRack.GetCountByID(set[i])==0 then
+						if itemName~="(пусто)" and ItemRack.GetCountByID(set[i])==0 then
 							if not ItemRack.FindInBank(set[i]) then
 								itemColor = "FFFF1111"
 							else
@@ -1470,81 +1443,16 @@ function ItemRack.SetTooltip(setname)
 	end
 end
 
---[[ Notify ]]
 
-function ItemRack.Notify(msg)
-	PlaySound("GnomeExploration")
-	if SCT_Display then -- send via SCT if it exists
-		SCT_Display(msg,{r=.2,g=.7,b=.9})
-	elseif SHOW_COMBAT_TEXT=="1" then
-		CombatText_AddMessage(msg, CombatText_StandardScroll, .2, .7, .9) -- or default UI's SCT
-	else
-		-- send vis UIErrorsFrame if neither SCT exists
-		UIErrorsFrame:AddMessage(msg,.2,.7,.9,1,UIERRORS_HOLD_TIME)
-	end
-	if ItemRackSettings.NotifyChatAlso=="ON" then
-		DEFAULT_CHAT_FRAME:AddMessage("|cff33b2e5"..msg)
-	end
-end
 
-function ItemRack.CooldownUpdate()
-	local inv,bag,slot,start,duration,name,remain
-	for i in pairs(ItemRackUser.ItemsUsed) do
-		start,duration = GetItemCooldown(i)
-		if start and ItemRackUser.ItemsUsed[i]<3 then
-			ItemRackUser.ItemsUsed[i] = ItemRackUser.ItemsUsed[i] + 1 -- count for 3 seconds before seeing if this is a real cooldown
-		elseif start then
-			if start>0 then
-				remain = duration - (GetTime()-start)
-				if ItemRackUser.ItemsUsed[i]<5 then
-					if remain>29 then
-						ItemRackUser.ItemsUsed[i] = 30 -- first actual cooldown greater than 30 seconds, tag it for 30+0 notify
-					elseif remain>5 then
-						ItemRackUser.ItemsUsed[i] = 5 -- first actual cooldown less than 30 but greater than 5, tag for 0 notify
-					end
-				end
-			end
-			if ItemRackUser.ItemsUsed[i]==30 and start>0 and remain<30 then
-				if ItemRackSettings.NotifyThirty=="ON" then
-					name = GetItemInfo(i)
-					if name then
-						ItemRack.Notify(name.." ready soon!")
-					end
-				end
-				ItemRackUser.ItemsUsed[i]=5 -- tag for just 0 notify now
-			elseif ItemRackUser.ItemsUsed[i]==5 and start==0 then
-				if ItemRackSettings.Notify=="ON" then
-					name = GetItemInfo(i)
-					if name then
-						ItemRack.Notify(name.." ready!")
-					end
-				end
-			end
-			if start==0 then
-				ItemRackUser.ItemsUsed[i] = nil
-			end
-		end
-	end
-
-	-- update cooldown numbers
-	if ItemRackSettings.CooldownCount=="ON" then
-		ItemRack.WriteButtonCooldowns()
-		ItemRack.WriteMenuCooldowns()
-	end
-
-	if ItemRack.PeriodicQueueCheck then
-		ItemRack.PeriodicQueueCheck()
-	end
-end
 
 --[[ Character sheet menus ]]
 
 ItemRack.oldPaperDollItemSlotButton_OnEnter = PaperDollItemSlotButton_OnEnter
+
 function PaperDollItemSlotButton_OnEnter(self)
 	ItemRack.oldPaperDollItemSlotButton_OnEnter(self)
-	if ItemRack.menuDockedTo~=this:GetName() and (ItemRackSettings.MenuOnShift=="OFF" or IsShiftKeyDown()) and ItemRackSettings.CharacterSheetMenus=="ON" then
-		ItemRack.DockMenuToCharacterSheet()
-	end
+	
 end
 
 function ItemRack.DockMenuToCharacterSheet()
@@ -1558,9 +1466,7 @@ function ItemRack.DockMenuToCharacterSheet()
 		if slot==0 or (slot>=16 and slot<=18) then
 			ItemRack.DockWindows("TOPLEFT",this,"BOTTOMLEFT","VERTICAL")
 		else
-			if slot==14 and ItemRackSettings.TrinketMenuMode=="ON" then
-				this = CharacterTrinket0Slot
-			end
+			
 			ItemRack.DockWindows("TOPLEFT",this,"TOPRIGHT","HORIZONTAL")
 		end
 		ItemRack.BuildMenu(slot)
@@ -1606,8 +1512,7 @@ function ItemRack.MinimapOnClick()
 		if ItemRackUser.CurrentSet and ItemRackUser.Sets[ItemRackUser.CurrentSet] then
 			ItemRack.UnequipSet(ItemRackUser.CurrentSet)
 		end
-	elseif IsAltKeyDown() and (arg1=="RightButton" or ItemRackSettings.AllowHidden=="OFF") then
-		ItemRack.ToggleEvents()
+	
 	elseif arg1=="LeftButton" then
 		if ItemRackMenuFrame:IsVisible() then
 			ItemRackMenuFrame:Hide()
@@ -1627,7 +1532,7 @@ end
 
 function ItemRack.MinimapOnEnter()
 	if ItemRackSettings.MinimapTooltip=="ON" then
-		ItemRack.OnTooltip("ItemRack","Left click: Select a set\nRight click: Open options\nAlt left click: Show hidden sets\nAlt right click: Toggle events\nShift click: Unequip this set")
+		ItemRack.OnTooltip("ItemRack","ЛКМ: Выберите комплект\nПКМ: Открыть настройки\nAlt+ ЛКМ: Показать скрытые комплекты\nAlt+ ЛКМ по слоту в 'Информации о персонаже': Чтобы показать кнопку этого слота на экране")
 	end
 end
 
@@ -1699,17 +1604,12 @@ end
 
 function ItemRack.SetFont(button)
 	local item = getglobal(button.."Time")
-	if ItemRackSettings.LargeNumbers=="ON" then
-		item:SetFont("Fonts\\FRIZQT__.TTF",16,"OUTLINE")
-		item:SetTextColor(1,.82,0,1)
-		item:ClearAllPoints()
-		item:SetPoint("CENTER",button,"CENTER")
-	else
+	
 		item:SetFont("Fonts\\ARIALN.TTF",14,"OUTLINE")
 		item:SetTextColor(1,1,1,1)
 		item:ClearAllPoints()
 		item:SetPoint("BOTTOM",button,"BOTTOM")
-	end
+	
 end
 
 function ItemRack.ReflectCooldownFont()
@@ -1784,6 +1684,8 @@ function ItemRack.RunSetBinding(setname)
 		ItemRack.ToggleSet(setname)
 	else
 		ItemRack.EquipSet(setname)
+		ItemRack.EquipSet(setname)
+
 	end
 end
 
@@ -1797,6 +1699,7 @@ function ItemRack.SlashHandler(arg1)
 			ItemRack.Print("Usage: /itemrack equip set name")
 			ItemRack.Print("ie: /itemrack equip pvp gear")
 		else
+			ItemRack.EquipSet(set)
 			ItemRack.EquipSet(set)
 		end
 		return
@@ -1812,7 +1715,9 @@ function ItemRack.SlashHandler(arg1)
 			else
 				if ItemRack.IsSetEquipped(set1) then
 					ItemRack.EquipSet(set2)
+					ItemRack.EquipSet(set2)
 				else
+					ItemRack.EquipSet(set1)
 					ItemRack.EquipSet(set1)
 				end
 			end
@@ -1835,12 +1740,12 @@ function ItemRack.SlashHandler(arg1)
 	elseif arg1=="opt" or arg1=="options" or arg1=="config" then
 		ItemRack.ToggleOptions()
 	else
-		ItemRack.Print("/itemrack opt : summons options window.")
-		ItemRack.Print("/itemrack equip set name : equip set 'set name'.")
-		ItemRack.Print("/itemrack toggle set name[, second set] : toggles set 'set name'.")
-		ItemRack.Print("/itemrack reset : resets buttons and their settings.")
-		ItemRack.Print("/itemrack reset everything : wipes ItemRack to default.")
-		ItemRack.Print("/itemrack lock/unlock : locks/unlocks the buttons.")
+		ItemRack.Print("/itemrack opt : открытие окна.")
+		ItemRack.Print("/itemrack equip set name : Комплект снаряжения set name - имя комплекта.")
+		ItemRack.Print("/itemrack toggle set name[, second set] : переключить set name - название комплекта.")
+		ItemRack.Print("/itemrack reset : сбрасывает кнопки и их настройки.")
+		ItemRack.Print("/itemrack reset everything : стирает ItemRack до по умолчанию.")
+		ItemRack.Print("/itemrack lock/unlock : блокирует/разблокирует кнопки.")
 	end
 
 end
@@ -1910,7 +1815,7 @@ end
 
 function ItemRack.ResetEverything()
 	StaticPopupDialogs["ItemRackCONFIRMRESET"] = {
-		text = "This will restore ItemRack to its default state, wiping all sets, buttons, events and settings.\nThe UI will be reloaded. Continue?",
+		text = "Это восстановит ItemRack в его состояние по умолчанию, стирая все наборы, кнопки и настройки.\n Интерфейс будет перезагружен. Продолжить?",
 		button1 = "Yes", button2 = "No", timeout = 0, hideOnEscape = 1, showAlert = 1,
 		OnAccept = function() ItemRackUser=nil ItemRackSettings=nil ItemRackItems=nil ItemRackEvents=nil ReloadUI() end
 	}
